@@ -485,28 +485,17 @@ void GLEngine::drawModelUsingProgrammablePipeline()
 
 	glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	// Vertex arrays setup
-	glEnableClientState( GL_VERTEX_ARRAY );
-	glVertexPointer(3, GL_FLOAT, model.getVertexSize(), model.getVertexBuffer()->position);
-
-	glEnableClientState( GL_NORMAL_ARRAY );
-	glNormalPointer(GL_FLOAT, model.getVertexSize(), model.getVertexBuffer()->normal);
-
-	glClientActiveTexture( GL_TEXTURE0 );
-	glEnableClientState( GL_TEXTURE_COORD_ARRAY );
-	glTexCoordPointer(2, GL_FLOAT, model.getVertexSize(), model.getVertexBuffer()->texCoord);
-	
+		
 	glUseProgram(blinnPhongShader);
 
 	objects = model.getObjects();
 	// Loop through objects...
-	for( int i=0 ; i < (int)objects.size(); i++ ) 
+	for( int i=0 ; i < (int)objects.size(); ++i ) 
 	{
 		ModelOBJ::GroupObject *object = objects[i];
 
 		// Loop through materials used by object...
-		for( int j=0 ; j < (int)object->materials.size() ; j++ ) 
+		for( int j=0 ; j < (int)object->materials.size() ; ++j ) 
 		{
 			ModelOBJ::Material *pMaterial = object->materials[j];
 
@@ -569,12 +558,6 @@ void GLEngine::drawModelUsingProgrammablePipeline()
 
 			//glDrawElements( GL_TRIANGLES, pMaterial->triangleCount, GL_UNSIGNED_INT, &pMaterial->indices.front() );
 			glDrawElements( GL_TRIANGLES, pMaterial->triangleCount * 3, GL_UNSIGNED_INT, model.getIndexBuffer() + (pMaterial->startIndex * 3) );
-
-			if (model.hasTangents())
-			{
-				glClientActiveTexture(GL_TEXTURE1);
-				glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-			}
 
 			if (model.hasNormals())
 				glDisableClientState(GL_NORMAL_ARRAY);

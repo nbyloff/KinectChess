@@ -270,106 +270,6 @@ void ModelOBJ::scale(float scaleFactor, float offset[3])
     }
 }
 
-void ModelOBJ::addTrianglePos(int index, int material, int v0, int v1, int v2)
-{
-    Vertex vertex =
-    {
-        0.0f, 0.0f, 0.0f,
-        0.0f, 0.0f,
-        0.0f, 0.0f, 0.0f
-    };
-
-    m_attributeBuffer[index] = material;
-
-    vertex.position[0] = m_vertexCoords[v0 * 3];
-    vertex.position[1] = m_vertexCoords[v0 * 3 + 1];
-    vertex.position[2] = m_vertexCoords[v0 * 3 + 2];
-    m_indexBuffer[index * 3] = addVertex(v0, &vertex);
-
-    vertex.position[0] = m_vertexCoords[v1 * 3];
-    vertex.position[1] = m_vertexCoords[v1 * 3 + 1];
-    vertex.position[2] = m_vertexCoords[v1 * 3 + 2];
-    m_indexBuffer[index * 3 + 1] = addVertex(v1, &vertex);
-
-    vertex.position[0] = m_vertexCoords[v2 * 3];
-    vertex.position[1] = m_vertexCoords[v2 * 3 + 1];
-    vertex.position[2] = m_vertexCoords[v2 * 3 + 2];
-    m_indexBuffer[index * 3 + 2] = addVertex(v2, &vertex);
-}
-
-void ModelOBJ::addTrianglePosNormal(int index, int material, int v0, int v1,
-                                    int v2, int vn0, int vn1, int vn2)
-{
-    Vertex vertex =
-    {
-        0.0f, 0.0f, 0.0f,
-        0.0f, 0.0f,
-        0.0f, 0.0f, 0.0f,
-        0.0f, 0.0f, 0.0f
-    };
-
-    m_attributeBuffer[index] = material;
-
-    vertex.position[0] = m_vertexCoords[v0 * 3];
-    vertex.position[1] = m_vertexCoords[v0 * 3 + 1];
-    vertex.position[2] = m_vertexCoords[v0 * 3 + 2];
-    vertex.normal[0] = m_normals[vn0 * 3];
-    vertex.normal[1] = m_normals[vn0 * 3 + 1];
-    vertex.normal[2] = m_normals[vn0 * 3 + 2];
-    m_indexBuffer[index * 3] = addVertex(v0, &vertex);
-
-    vertex.position[0] = m_vertexCoords[v1 * 3];
-    vertex.position[1] = m_vertexCoords[v1 * 3 + 1];
-    vertex.position[2] = m_vertexCoords[v1 * 3 + 2];
-    vertex.normal[0] = m_normals[vn1 * 3];
-    vertex.normal[1] = m_normals[vn1 * 3 + 1];
-    vertex.normal[2] = m_normals[vn1 * 3 + 2];
-    m_indexBuffer[index * 3 + 1] = addVertex(v1, &vertex);
-
-    vertex.position[0] = m_vertexCoords[v2 * 3];
-    vertex.position[1] = m_vertexCoords[v2 * 3 + 1];
-    vertex.position[2] = m_vertexCoords[v2 * 3 + 2];
-    vertex.normal[0] = m_normals[vn2 * 3];
-    vertex.normal[1] = m_normals[vn2 * 3 + 1];
-    vertex.normal[2] = m_normals[vn2 * 3 + 2];
-    m_indexBuffer[index * 3 + 2] = addVertex(v2, &vertex);
-}
-
-void ModelOBJ::addTrianglePosTexCoord(int index, int material, int v0, int v1,
-                                      int v2, int vt0, int vt1, int vt2)
-{
-    Vertex vertex =
-    {
-        0.0f, 0.0f, 0.0f,
-        0.0f, 0.0f,
-        0.0f, 0.0f, 0.0f,
-        0.0f, 0.0f, 0.0f
-    };
-
-    m_attributeBuffer[index] = material;
-
-    vertex.position[0] = m_vertexCoords[v0 * 3];
-    vertex.position[1] = m_vertexCoords[v0 * 3 + 1];
-    vertex.position[2] = m_vertexCoords[v0 * 3 + 2];
-    vertex.texCoord[0] = m_textureCoords[vt0 * 2];
-    vertex.texCoord[1] = m_textureCoords[vt0 * 2 + 1];
-    m_indexBuffer[index * 3] = addVertex(v0, &vertex);
-
-    vertex.position[0] = m_vertexCoords[v1 * 3];
-    vertex.position[1] = m_vertexCoords[v1 * 3 + 1];
-    vertex.position[2] = m_vertexCoords[v1 * 3 + 2];
-    vertex.texCoord[0] = m_textureCoords[vt1 * 2];
-    vertex.texCoord[1] = m_textureCoords[vt1 * 2 + 1];
-    m_indexBuffer[index * 3 + 1] = addVertex(v1, &vertex);
-
-    vertex.position[0] = m_vertexCoords[v2 * 3];
-    vertex.position[1] = m_vertexCoords[v2 * 3 + 1];
-    vertex.position[2] = m_vertexCoords[v2 * 3 + 2];
-    vertex.texCoord[0] = m_textureCoords[vt2 * 2];
-    vertex.texCoord[1] = m_textureCoords[vt2 * 2 + 1];
-    m_indexBuffer[index * 3 + 2] = addVertex(v2, &vertex);
-}
-
 void ModelOBJ::addTrianglePosTexCoordNormal(int index, int material, int v0,
                                             int v1, int v2, int vt0, int vt1,
                                             int vt2, int vn0, int vn1, int vn2)
@@ -457,6 +357,21 @@ int ModelOBJ::addVertex(int hash, const Vertex *pVertex)
     }
 
     return index;
+}
+
+void ModelOBJ::buildObjects()
+{
+	GroupObject *obj = 0;
+	int materialId = -1;
+	int numObjects = 0;
+
+	/*
+	1. add new var m_ObjectMaterials
+	2. whenever usemtl invoked, add that new Material to m_ObjectMaterials
+	3. loop & count materials like first loop below
+	4. allocate memory for materials & reset counters like below
+	5. 
+	*/
 }
 
 void ModelOBJ::buildMeshes()
@@ -911,52 +826,16 @@ void ModelOBJ::importGeometrySecondPass(FILE *pFile)
 
     while (fscanf(pFile, "%s", buffer) != EOF)
     {
-        //switch (buffer[0])
-		if ( buffer[0] == 'f' )
+		if ( buffer[0] == 'f' ) // v, v//vn, v/vt, or v/vt/vn(only one accounted for ATM).
         {
-        //case 'f': // v, v//vn, v/vt, or v/vt/vn.
             v[0]  = v[1]  = v[2]  = 0;
             vt[0] = vt[1] = vt[2] = 0;
             vn[0] = vn[1] = vn[2] = 0;
 
-			//Vertex *vertex = new Vertex;
-			//currentMaterial->vertices.push_back(vertex);
-
             fscanf(pFile, "%s", buffer);
 
-            if (strstr(buffer, "//")) // v//vn
-            {
-                sscanf(buffer, "%d//%d", &v[0], &vn[0]);
-                fscanf(pFile, "%d//%d", &v[1], &vn[1]);
-                fscanf(pFile, "%d//%d", &v[2], &vn[2]);
-
-                v[0] = (v[0] < 0) ? v[0] + numVertices - 1 : v[0] - 1;
-                v[1] = (v[1] < 0) ? v[1] + numVertices - 1 : v[1] - 1;
-                v[2] = (v[2] < 0) ? v[2] + numVertices - 1 : v[2] - 1;
-
-                vn[0] = (vn[0] < 0) ? vn[0] + numNormals - 1 : vn[0] - 1;
-                vn[1] = (vn[1] < 0) ? vn[1] + numNormals - 1 : vn[1] - 1;
-                vn[2] = (vn[2] < 0) ? vn[2] + numNormals - 1 : vn[2] - 1;
-
-                addTrianglePosNormal(numTriangles++, activeMaterial,
-                    v[0], v[1], v[2], vn[0], vn[1], vn[2]);
-
-                v[1] = v[2];
-                vn[1] = vn[2];
-
-                while (fscanf(pFile, "%d//%d", &v[2], &vn[2]) > 0)
-                {
-                    v[2] = (v[2] < 0) ? v[2] + numVertices - 1 : v[2] - 1;
-                    vn[2] = (vn[2] < 0) ? vn[2] + numNormals - 1 : vn[2] - 1;
-
-                    addTrianglePosNormal(numTriangles++, activeMaterial,
-                        v[0], v[1], v[2], vn[0], vn[1], vn[2]);
-
-                    v[1] = v[2];
-                    vn[1] = vn[2];
-                }
-            }
-            else if (sscanf(buffer, "%d/%d/%d", &v[0], &vt[0], &vn[0]) == 3) // v/vt/vn
+           
+            if (sscanf(buffer, "%d/%d/%d", &v[0], &vt[0], &vn[0]) == 3) // v/vt/vn
             {
                 fscanf(pFile, "%d/%d/%d", &v[1], &vt[1], &vn[1]);
                 fscanf(pFile, "%d/%d/%d", &v[2], &vt[2], &vn[2]);
@@ -1002,63 +881,7 @@ void ModelOBJ::importGeometrySecondPass(FILE *pFile)
                     vn[1] = vn[2];
                 }
             }
-            else if (sscanf(buffer, "%d/%d", &v[0], &vt[0]) == 2) // v/vt
-            {
-                fscanf(pFile, "%d/%d", &v[1], &vt[1]);
-                fscanf(pFile, "%d/%d", &v[2], &vt[2]);
-
-                v[0] = (v[0] < 0) ? v[0] + numVertices - 1 : v[0] - 1;
-                v[1] = (v[1] < 0) ? v[1] + numVertices - 1 : v[1] - 1;
-                v[2] = (v[2] < 0) ? v[2] + numVertices - 1 : v[2] - 1;
-
-                vt[0] = (vt[0] < 0) ? vt[0] + numTexCoords - 1 : vt[0] - 1;
-                vt[1] = (vt[1] < 0) ? vt[1] + numTexCoords - 1 : vt[1] - 1;
-                vt[2] = (vt[2] < 0) ? vt[2] + numTexCoords - 1 : vt[2] - 1;
-
-                addTrianglePosTexCoord(numTriangles++, activeMaterial,
-                    v[0], v[1], v[2], vt[0], vt[1], vt[2]);
-
-                v[1] = v[2];
-                vt[1] = vt[2];
-
-                while (fscanf(pFile, "%d/%d", &v[2], &vt[2]) > 0)
-                {
-                    v[2] = (v[2] < 0) ? v[2] + numVertices - 1 : v[2] - 1;
-                    vt[2] = (vt[2] < 0) ? vt[2] + numTexCoords - 1 : vt[2] - 1;
-
-                    addTrianglePosTexCoord(numTriangles++, activeMaterial,
-                        v[0], v[1], v[2], vt[0], vt[1], vt[2]);
-
-                    v[1] = v[2];
-                    vt[1] = vt[2];
-                }
-            }
-            else // v
-            {
-                sscanf(buffer, "%d", &v[0]);
-                fscanf(pFile, "%d", &v[1]);
-                fscanf(pFile, "%d", &v[2]);
-
-                v[0] = (v[0] < 0) ? v[0] + numVertices - 1 : v[0] - 1;
-                v[1] = (v[1] < 0) ? v[1] + numVertices - 1 : v[1] - 1;
-                v[2] = (v[2] < 0) ? v[2] + numVertices - 1 : v[2] - 1;
-
-                addTrianglePos(numTriangles++, activeMaterial, v[0], v[1], v[2]);
-
-                v[1] = v[2];
-
-                while (fscanf(pFile, "%d", &v[2]) > 0)
-                {
-                    v[2] = (v[2] < 0) ? v[2] + numVertices - 1 : v[2] - 1;
-
-                    addTrianglePos(numTriangles++, activeMaterial, v[0], v[1], v[2]);
-
-                    v[1] = v[2];
-                }
-            }
-            //break;
-        //case 'u': // usemtl
-		} else if (buffer[0] == 'u' ) {
+		} else if (buffer[0] == 'u' ) { // usemtl
             fgets(buffer, sizeof(buffer), pFile);
             sscanf(buffer, "%s %s", buffer, buffer);
             name = buffer;
@@ -1082,9 +905,7 @@ void ModelOBJ::importGeometrySecondPass(FILE *pFile)
 					break;
 				}
 			}
-            //break;
-		//case 'g':
-		} else if (buffer[0] == 'g' ) {
+		} else if (buffer[0] == 'g' ) { //group
 			//NWB
 			fscanf (pFile, "%s", oName);
 			objectName = oName;
@@ -1097,10 +918,7 @@ void ModelOBJ::importGeometrySecondPass(FILE *pFile)
 				currentGroup = object;
 				objects.push_back(object);
 			}
-			//break;
-
-        //case 'v': // v, vn, or vt.
-		} else if (buffer[0] == 'v' ) {
+		} else if (buffer[0] == 'v' ) { // v, vn, or vt.
             switch (buffer[1])
             {
             case '\0': // v
@@ -1129,12 +947,8 @@ void ModelOBJ::importGeometrySecondPass(FILE *pFile)
             default:
                 break;
             }
-           // break;
-
-        //default:
 		} else {
             fgets(buffer, sizeof(buffer), pFile);
-        //    break;
         }
     }
 }

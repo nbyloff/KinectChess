@@ -1,4 +1,4 @@
-#if !defined(MODEL_OBJ_H)
+#ifndef MODEL_OBJ_H
 #define MODEL_OBJ_H
 
 #include <cstdio>
@@ -98,14 +98,7 @@ public:
 
 
 private:
-    void addTrianglePos(int index, int material,
-        int v0, int v1, int v2);
-    void addTrianglePosNormal(int index, int material,
-        int v0, int v1, int v2,
-        int vn0, int vn1, int vn2);
-    void addTrianglePosTexCoord(int index, int material,
-        int v0, int v1, int v2,
-        int vt0, int vt1, int vt2);
+    
     void addTrianglePosTexCoordNormal(int index, int material,
         int v0, int v1, int v2,
         int vt0, int vt1, int vt2,
@@ -114,6 +107,7 @@ private:
     void bounds(float center[3], float &width, float &height,
         float &length, float &radius) const;
     void buildMeshes();
+	void buildObjects();
     void generateNormals();
     void generateTangents();
     void importGeometryFirstPass(FILE *pFile);
