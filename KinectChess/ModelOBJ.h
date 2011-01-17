@@ -42,6 +42,7 @@ public:
 	struct GroupObject
 	{
 		std::vector<Material *> materials;
+		std::vector<int>		materialIds;
 		std::string				objectName;
 		std::string				groupName;
 		int						index;
@@ -75,7 +76,9 @@ public:
     const int *getIndexBuffer() const;
     int getIndexSize() const;
 
-    const Material &getMaterial(int i) const;
+    //const Material &getMaterial(int i) const; NWB
+	const Material &getMaterial(int i) const;
+
     const Mesh &getMesh(int i) const;
 
     int getNumberOfIndices() const;
@@ -127,6 +130,7 @@ private:
     int m_numberOfMaterials;
     int m_numberOfMeshes;
 	int m_numberOfObjects;
+	int m_numberOfObjectMaterials;
 
     float m_center[3];
     float m_width;
@@ -144,6 +148,10 @@ private:
     std::vector<float> m_vertexCoords;
     std::vector<float> m_textureCoords;
     std::vector<float> m_normals;
+
+
+	std::vector<int> m_ObjectMaterialIds;
+	std::vector<Material *> m_ObjectMaterials;
 
     std::map<std::string, int> m_materialCache;
     std::map<int, std::vector<int> > m_vertexCache;
@@ -175,7 +183,7 @@ inline const int *ModelOBJ::getIndexBuffer() const
 inline int ModelOBJ::getIndexSize() const
 { return static_cast<int>(sizeof(int)); }
 
-inline const ModelOBJ::Material &ModelOBJ::getMaterial(int i) const
+inline const ModelOBJ::Material &ModelOBJ::getMaterial(int i) const 
 { return m_materials[i]; }
 
 inline const ModelOBJ::Mesh &ModelOBJ::getMesh(int i) const

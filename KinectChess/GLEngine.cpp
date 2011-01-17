@@ -488,6 +488,8 @@ void GLEngine::drawModelUsingProgrammablePipeline()
 		
 	glUseProgram(blinnPhongShader);
 
+	const ModelOBJ::Material *pMaterial = 0;
+
 	objects = model.getObjects();
 	// Loop through objects...
 	for( int i=0 ; i < (int)objects.size(); ++i ) 
@@ -495,9 +497,10 @@ void GLEngine::drawModelUsingProgrammablePipeline()
 		ModelOBJ::GroupObject *object = objects[i];
 
 		// Loop through materials used by object...
-		for( int j=0 ; j < (int)object->materials.size() ; ++j ) 
+		for( int j=0 ; j < (int)object->materialIds.size() ; ++j ) 
 		{
 			ModelOBJ::Material *pMaterial = object->materials[j];
+			//pMaterial = &model.getMaterial(j);
 
 			glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, pMaterial->ambient);
 			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, pMaterial->diffuse);
@@ -557,7 +560,7 @@ void GLEngine::drawModelUsingProgrammablePipeline()
 			}
 
 			//glDrawElements( GL_TRIANGLES, pMaterial->triangleCount, GL_UNSIGNED_INT, &pMaterial->indices.front() );
-			glDrawElements( GL_TRIANGLES, pMaterial->triangleCount * 3, GL_UNSIGNED_INT, model.getIndexBuffer() + (pMaterial->startIndex * 3) );
+			glDrawElements( GL_TRIANGLES, pMaterial->triangleCount * 3, GL_UNSIGNED_INT, model.getIndexBuffer() + pMaterial->startIndex );
 
 			if (model.hasNormals())
 				glDisableClientState(GL_NORMAL_ARRAY);

@@ -163,7 +163,8 @@ bool ModelOBJ::import(const char *pszFilename, bool rebuildNormals)
 
     // Perform post import tasks.
 
-    buildMeshes();
+   // buildMeshes();
+	buildObjects();
     bounds(m_center, m_width, m_height, m_length, m_radius);
 
     // Build vertex normals if required.
@@ -361,9 +362,9 @@ int ModelOBJ::addVertex(int hash, const Vertex *pVertex)
 
 void ModelOBJ::buildObjects()
 {
-	GroupObject *obj = 0;
+	Material *m = 0;
 	int materialId = -1;
-	int numObjects = 0;
+	int numMaterials = 0;
 
 	/*
 	1. add new var m_ObjectMaterials
@@ -372,6 +373,42 @@ void ModelOBJ::buildObjects()
 	4. allocate memory for materials & reset counters like below
 	5. 
 	*/
+	//count number of materials
+	for (int i = 0; i < static_cast<int>(m_attributeBuffer.size()); i++)
+    {
+        if (m_attributeBuffer[i] != materialId)
+        {
+            materialId = m_attributeBuffer[i];
+            ++numMaterials;
+        }
+	}
+
+	// Allocate memory for the materials and reset counters.
+    m_numberOfObjectMaterials = numMaterials;
+    m_materials.resize(m_numberOfObjectMaterials);
+    numMaterials = 0;
+    materialId = -1;
+
+	// Build the meshes. One mesh for each unique material.
+    for (int i = 0; i < static_cast<int>(m_attributeBuffer.size()); i++)
+    {
+        if (m_attributeBuffer[i] != materialId)
+        {
+            materialId = m_attributeBuffer[i];
+            m = m_ObjectMaterials[materialId];
+            m->startIndex = i * 3;
+			m->triangleCount = 0;
+            ++m->triangleCount;
+        }
+        else
+        {
+            ++m->triangleCount;
+        }
+    }
+
+    // Sort the meshes based on its material alpha. Fully opaque meshes
+    // towards the front and fully transparent towards the back.
+    //std::sort(m_meshes.begin(), m_meshes.end(), MeshCompFunc);
 }
 
 void ModelOBJ::buildMeshes()
@@ -860,7 +897,7 @@ void ModelOBJ::importGeometrySecondPass(FILE *pFile)
 				currentMaterial->indices.push_back(v[1]);
 				currentMaterial->indices.push_back(v[2]);
 
-                addTrianglePosTexCoordNormal(numTriangles++, activeMaterial,
+                addTrianglePosTexCoordNormal(numTriangles++, currentMaterial->id,
                     v[0], v[1], v[2], vt[0], vt[1], vt[2], vn[0], vn[1], vn[2]);
 
                 v[1] = v[2];
@@ -873,7 +910,7 @@ void ModelOBJ::importGeometrySecondPass(FILE *pFile)
                     vt[2] = (vt[2] < 0) ? vt[2] + numTexCoords - 1 : vt[2] - 1;
                     vn[2] = (vn[2] < 0) ? vn[2] + numNormals - 1 : vn[2] - 1;
 
-                    addTrianglePosTexCoordNormal(numTriangles++, activeMaterial,
+                    addTrianglePosTexCoordNormal(numTriangles++, currentMaterial->id,
                         v[0], v[1], v[2], vt[0], vt[1], vt[2], vn[0], vn[1], vn[2]);
 
                     v[1] = v[2];
@@ -899,9 +936,11 @@ void ModelOBJ::importGeometrySecondPass(FILE *pFile)
 					m->startIndex = -1;
 					m->triangleCount = 0;
 					materialId++;
-
 					currentMaterial = m;
 					currentGroup->materials.push_back(currentMaterial);
+					currentGroup->materialIds.push_back( currentMaterial->id );
+					m_ObjectMaterialIds.push_back( currentMaterial->id );
+					m_ObjectMaterials.push_back( currentMaterial );
 					break;
 				}
 			}
