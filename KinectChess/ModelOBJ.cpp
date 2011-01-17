@@ -1,6 +1,3 @@
-//-----------------------------------------------------------------------------
-// Copyright (c) 2007 dhpoware. All Rights Reserved.
-//
 #include <algorithm>
 #include <cmath>
 #include <cstring>

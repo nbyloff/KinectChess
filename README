@@ -1,2 +1,5 @@
-This is just a sample project learning OpenGL. This code is not using the model
+This is just a sample project learning OpenGL. Currently it does not work, 
+GLEngine::drawUsingProgrammablePipeline() is the draw method, which needs work.
+
+This code is not using the model
 as a resource file, so on line 9 of main.cpp, you MUST put in the full path to the obj file

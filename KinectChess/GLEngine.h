@@ -21,7 +21,6 @@
 
 #include "bitmap.h"
 #include "ModelOBJ.h"
-#include "WGL_ARB_multisample.h"
 
 // GL_EXT_texture_filter_anisotropic
 #define GL_TEXTURE_MAX_ANISOTROPY_EXT     0x84FE
@@ -48,10 +47,7 @@ public:
 	void loadModel(const char *pszFilename = "");
 
 	ModelOBJ getModel(void);
-
-	// Initializes all of the OpenGL 2.0 entry points.
-	void GL2Init();
-
+	
 	GLvoid Initialize(GLint width, GLint height);
 	GLvoid establishProjectionMatrix(GLsizei width, GLsizei height);
 
@@ -59,10 +55,7 @@ public:
 
 	void	drawModelUsingProgrammablePipeline();
 	void	drawModelUsingFixedFuncPipeline();
-
-	//void	drawObject(ModelOBJ::GroupObject *drawSelected);
-	//void	drawFace(ModelOBJ::Face &face);
-
+	
 	GLvoid buildTextureFont(GLvoid);
 	GLvoid drawText(GLint x, GLint y, const char *text, ...);
 

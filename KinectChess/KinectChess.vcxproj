@@ -87,7 +87,6 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="vector.h" />
     <ClInclude Include="Vector3.h" />
-    <ClInclude Include="WGL_ARB_multisample.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bitmap.cpp" />
@@ -97,7 +96,6 @@
     <ClCompile Include="ModelOBJ.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="WGL_ARB_multisample.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="KinectChess.rc" />
