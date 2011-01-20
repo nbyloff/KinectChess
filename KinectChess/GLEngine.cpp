@@ -370,119 +370,6 @@ void GLEngine::drawModelUsingFixedFuncPipeline()
     }
 }
 
-//This WORKS
-/*void GLEngine::drawModelUsingProgrammablePipeline()
-{
-	const ModelOBJ::Mesh *pMesh = 0;
-    const ModelOBJ::Material *pMaterial = 0;
-    const ModelOBJ::Vertex *pVertices = 0;
-    ModelTextures::const_iterator iter;
-    GLuint texture = 0;
-
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-    for (int i = 0; i < model.getNumberOfMeshes(); ++i)
-    {
-        pMesh = &model.getMesh(i);
-        pMaterial = pMesh->pMaterial;
-        pVertices = model.getVertexBuffer();
-
-        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, pMaterial->ambient);
-        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, pMaterial->diffuse);
-        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, pMaterial->specular);
-        glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, pMaterial->shininess * 128.0f);
-
-        if (pMaterial->bumpMapFilename.empty())
-        {
-             //Per fragment Blinn-Phong code path.
-
-            glUseProgram(blinnPhongShader);
-
-             //Bind the color map texture.
-
-            texture = nullTexture;
-
-            if (enableTextures)
-            {
-                iter = modelTextures.find(pMaterial->colorMapFilename);
-
-                if (iter != modelTextures.end())
-                    texture = iter->second;
-            }
-
-            glActiveTexture(GL_TEXTURE0);
-            glEnable(GL_TEXTURE_2D);
-            glBindTexture(GL_TEXTURE_2D, texture);
-
-             //Update shader parameters.
-
-            glUniform1i(glGetUniformLocation(
-                blinnPhongShader, "colorMap"), 0);
-            glUniform1f(glGetUniformLocation(
-                blinnPhongShader, "materialAlpha"), pMaterial->alpha);
-        }
-       
-         //Render mesh.
-
-        if (model.hasPositions())
-        {
-            glEnableClientState(GL_VERTEX_ARRAY);
-            glVertexPointer(3, GL_FLOAT, model.getVertexSize(),
-                model.getVertexBuffer()->position);
-        }
-
-        if (model.hasTextureCoords())
-        {
-            glClientActiveTexture(GL_TEXTURE0);
-            glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-            glTexCoordPointer(2, GL_FLOAT, model.getVertexSize(),
-                model.getVertexBuffer()->texCoord);
-        }
-
-        if (model.hasNormals())
-        {
-            glEnableClientState(GL_NORMAL_ARRAY);
-            glNormalPointer(GL_FLOAT, model.getVertexSize(),
-                model.getVertexBuffer()->normal);
-        }
-
-        if (model.hasTangents())
-        {
-            glClientActiveTexture(GL_TEXTURE1);
-            glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-            glTexCoordPointer(4, GL_FLOAT, model.getVertexSize(),
-                model.getVertexBuffer()->tangent);
-        }
-
-        glDrawElements(GL_TRIANGLES, pMesh->triangleCount * 3, GL_UNSIGNED_INT,
-            model.getIndexBuffer() + pMesh->startIndex);
-
-        if (model.hasTangents())
-        {
-            glClientActiveTexture(GL_TEXTURE1);
-            glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-        }
-
-        if (model.hasNormals())
-            glDisableClientState(GL_NORMAL_ARRAY);
-
-        if (model.hasTextureCoords())
-        {
-            glClientActiveTexture(GL_TEXTURE0);
-            glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-        }
-
-        if (model.hasPositions())
-            glDisableClientState(GL_VERTEX_ARRAY);
-    }
-
-    glBindTexture(GL_TEXTURE_2D, 0);
-    glUseProgram(0);
-    glDisable(GL_BLEND);
-}*/
-
-//This DOES NOT WORK; COMMENTED OUT METHOD ABOVE DOES WORK
 void GLEngine::drawModelUsingProgrammablePipeline()
 {
 	ModelTextures::const_iterator iter;
@@ -512,7 +399,6 @@ void GLEngine::drawModelUsingProgrammablePipeline()
 		for( int j=0 ; j < (int)object->materialIds.size() ; ++j ) 
 		{
 			ModelOBJ::Material *pMaterial = object->materials[j];
-			//pMaterial = &model.getMaterial(j);
 
 			glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, pMaterial->ambient);
 			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, pMaterial->diffuse);
@@ -571,7 +457,6 @@ void GLEngine::drawModelUsingProgrammablePipeline()
 					model.getVertexBuffer()->tangent);
 			}
 
-			//glDrawElements( GL_TRIANGLES, pMaterial->triangleCount, GL_UNSIGNED_INT, &pMaterial->indices.front() );
 			glDrawElements( GL_TRIANGLES, pMaterial->triangleCount * 3, GL_UNSIGNED_INT, model.getIndexBuffer() + pMaterial->startIndex );
 
 			if (model.hasNormals())
@@ -616,7 +501,7 @@ GLvoid GLEngine::drawObject( ModelOBJ::GroupObject *selected )
 GLvoid GLEngine::drawFace(ModelOBJ::Vertex &vertex)
 {
 	glBegin(GL_TRIANGLES);
-		glTexCoord2f(vertex.texCoord[0], vertex.texCoord[1]);
+		glTexCoord2f( vertex.texCoord[0], vertex.texCoord[1] );
 		glNormal3f( vertex.normal[0], vertex.normal[1], vertex.normal[2] );
 		glVertex3d(  vertex.position[0], vertex.position[1], vertex.position[2] );
 	glEnd();

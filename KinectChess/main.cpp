@@ -54,18 +54,6 @@ GLvoid drawScene(bool selection = false)
 
     cam.SetCamera();
 
-	//glColorMask(0, 0, 0, 0); //no elements drawn to the frame buffer
-	//glEnable(GL_STENCIL_TEST);
-
-	//glStencilFunc(GL_ALWAYS, 1, 1);
-	//glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE); //only draw what passes; 1st 2 fail
-
-	//glDisable(GL_DEPTH_TEST);
-	////Draw stencil stuff here
-	//glEnable(GL_DEPTH_TEST);
-
-	//glColorMask(1, 1, 1, 1);
-
 	if ( iGLEngine->supportProgrammablePipeline() )
 		iGLEngine->drawModelUsingProgrammablePipeline();
     else
@@ -80,13 +68,13 @@ GLvoid drawScene(bool selection = false)
 		moving = true;
 	}
 
-	//glEnable(GL_LIGHTING);
-	//glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	glEnable(GL_LIGHTING);
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
 	if ( selection == true )
 		return;
 
-	//glDisable(GL_LIGHTING);
+	glDisable(GL_LIGHTING);
 	cam.Orthographic(0, 0, windowWidth, windowHeight);
     cam.ClearCamera();
 
@@ -111,8 +99,6 @@ void handleSelections(void)
 		glGetIntegerv(GL_VIEWPORT, viewport);
 		glReadPixels(state.x,viewport[3] - state.y,1,1, GL_STENCIL_INDEX,GL_UNSIGNED_BYTE,(void *)pixel);
 		selectedItem = iGLEngine->getObject( (int)pixel[0] );
-		int x = 0;
-
 	}
 }
 
