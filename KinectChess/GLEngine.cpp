@@ -32,6 +32,11 @@ ModelOBJ GLEngine::getModel(void)
 	return model;
 }
 
+ModelOBJ::GroupObject *GLEngine::getObject(int index)
+{
+	return model.getObject( index );
+}
+
 GLuint GLEngine::loadTexture(const char *pszFilename)
 {
     GLuint id = 0;
@@ -170,7 +175,7 @@ GLvoid GLEngine::Initialize(GLint width, GLint height)
     glCullFace(GL_BACK);
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
-	//glClearStencil(0);
+	glClearStencil(0);
 
     /*glActiveTexture(GL_TEXTURE1);
     glEnable(GL_TEXTURE_2D);
@@ -489,12 +494,19 @@ void GLEngine::drawModelUsingProgrammablePipeline()
 	glUseProgram(blinnPhongShader);
 
 	const ModelOBJ::Material *pMaterial = 0;
+	// Stencil setup
+	glStencilOp( GL_KEEP, GL_KEEP, GL_REPLACE );
+	glEnable( GL_STENCIL_TEST );
+
 
 	objects = model.getObjects();
 	// Loop through objects...
 	for( int i=0 ; i < (int)objects.size(); ++i ) 
 	{
 		ModelOBJ::GroupObject *object = objects[i];
+		
+		// Draw to stencil buffer with object's index
+		glStencilFunc( GL_ALWAYS, object->index, 0xFF );
 
 		// Loop through materials used by object...
 		for( int j=0 ; j < (int)object->materialIds.size() ; ++j ) 
@@ -585,6 +597,30 @@ void GLEngine::drawModelUsingProgrammablePipeline()
     glDisable(GL_BLEND);
 }
 
+GLvoid GLEngine::drawObject( ModelOBJ::GroupObject *selected )
+{
+	//loop through all faces & draw them
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+
+	for ( int n = 0; n < (int)selected->vertices.size(); n++ )
+	{
+		ModelOBJ::Vertex *vertex = selected->vertices[n];
+		drawFace(*vertex);
+	}
+
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+}
+
+GLvoid GLEngine::drawFace(ModelOBJ::Vertex &vertex)
+{
+	glBegin(GL_TRIANGLES);
+		glTexCoord2f(vertex.texCoord[0], vertex.texCoord[1]);
+		glNormal3f( vertex.normal[0], vertex.normal[1], vertex.normal[2] );
+		glVertex3d(  vertex.position[0], vertex.position[1], vertex.position[2] );
+	glEnd();
+}
 
 GLuint GLEngine::getTextWidth(const char *text)
 {

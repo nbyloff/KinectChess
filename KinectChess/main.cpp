@@ -25,7 +25,7 @@ int     MouseX = 0,
         RelY = 0;
 
 Camera cam;
-//ModelOBJ::GroupObject *selectedItem = NULL;
+ModelOBJ::GroupObject *selectedItem = NULL;
 bool moving = false; //we have piece selected, waiting for a location to be chosen
 
 
@@ -71,6 +71,15 @@ GLvoid drawScene(bool selection = false)
     else
         iGLEngine->drawModelUsingFixedFuncPipeline();
 
+	if ( selectedItem )
+	{
+		ModelOBJ::GroupObject *obj = selectedItem;
+		glDisable(GL_LIGHTING); //don't want light in the calcluations
+		glColor4f(0.0f, 1.0f, 0.0f, 0.2f);
+		iGLEngine->drawObject( obj );
+		moving = true;
+	}
+
 	//glEnable(GL_LIGHTING);
 	//glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
@@ -96,55 +105,14 @@ void handleSelections(void)
 	{
 		buttonDown = false;
 		//VTM 47 2min
-		GLuint buffer[512];
+		GLubyte pixel[1];
 		GLint viewport[4];
 
 		glGetIntegerv(GL_VIEWPORT, viewport);
-		glSelectBuffer(512, buffer);
-		glRenderMode(GL_SELECT); 
-		
-		glInitNames();
-		glMatrixMode(GL_PROJECTION);
-		glPushMatrix();
+		glReadPixels(state.x,viewport[3] - state.y,1,1, GL_STENCIL_INDEX,GL_UNSIGNED_BYTE,(void *)pixel);
+		selectedItem = iGLEngine->getObject( (int)pixel[0] );
+		int x = 0;
 
-		glLoadIdentity();
-
-		//change render area to small area around mouse
-		gluPickMatrix( state.x, viewport[3] - state.y, 1.0f, 1.0f, viewport);
-		gluPerspective(45.0f, (GLfloat) windowWidth / (GLfloat) windowHeight, 0.1f, 500.0f);
-
-		drawScene(true);
-
-		glMatrixMode(GL_PROJECTION);
-		glPopMatrix();
-
-		glMatrixMode(GL_MODELVIEW);
-		int totalHits = glRenderMode(GL_RENDER);
-
-		if ( totalHits > 0 )
-		{
-			int choose = buffer[3];
-			int depth = buffer[1];
-
-			for ( int i = 0; i < totalHits; i++ )
-			{
-				if ( buffer[i * 4 + 1] < (GLuint)depth)
-				{
-					choose = buffer[i * 4 + 3];
-					depth = buffer[i * 4 + 1];
-				}
-			}
-			//if ( !moving ) 
-			//{
-			//	selectedItem = reinterpret_cast<ModelOBJ::GroupObject *>(choose); //convert int choose to GroupObject pointer
-			//	if ( selectedItem->objectName != "Board" )
-			//		int i = 1;
-			//} else
-			//	ModelOBJ::GroupObject *moveTo = reinterpret_cast<ModelOBJ::GroupObject *>(choose); 
-
-		} else {
-			//selectedItem = NULL;
-		}
 	}
 }
 
@@ -223,7 +191,7 @@ int main (int argc, char* argv[])
 		exit(1);
 	}
 
-	//SDL_GL_SetAttribute( SDL_GL_STENCIL_SIZE, 1 ); //NWB
+	SDL_GL_SetAttribute( SDL_GL_STENCIL_SIZE, 1 ); //NWB
 
 	//SDL_SetVideoMode
 	if ( SDL_SetVideoMode(windowWidth, windowHeight, 0, SDL_OPENGL | SDL_RESIZABLE) == NULL)

@@ -47,6 +47,9 @@ public:
 	void loadModel(const char *pszFilename = "");
 
 	ModelOBJ getModel(void);
+	ModelOBJ::GroupObject *getObject(int index);
+	GLvoid GLEngine::drawObject( ModelOBJ::GroupObject *selected );
+	GLvoid GLEngine::drawFace(ModelOBJ::Vertex &vertex);
 	
 	GLvoid Initialize(GLint width, GLint height);
 	GLvoid establishProjectionMatrix(GLsizei width, GLsizei height);

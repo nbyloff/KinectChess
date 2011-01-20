@@ -94,6 +94,15 @@ vector<ModelOBJ::GroupObject *> ModelOBJ::getObjects(void)
 	return objects;
 }
 
+ModelOBJ::GroupObject *ModelOBJ::getObject(int index)
+{
+	for ( int i = 0; i < (int)objects.size(); i++ )
+	{
+		if ( objects[i]->index == index )
+			return objects[i];
+	}
+}
+
 void ModelOBJ::destroy()
 {
     m_hasPositions = false;
@@ -162,13 +171,10 @@ bool ModelOBJ::import(const char *pszFilename, bool rebuildNormals)
     fclose(pFile);
 
     // Perform post import tasks.
-
-   // buildMeshes();
 	buildObjects();
     bounds(m_center, m_width, m_height, m_length, m_radius);
 
     // Build vertex normals if required.
-
     if (rebuildNormals)
     {
         generateNormals();
@@ -180,7 +186,6 @@ bool ModelOBJ::import(const char *pszFilename, bool rebuildNormals)
     }
 
     // Build tangents is required.
-
     for (int i = 0; i < m_numberOfMaterials; ++i)
     {
         if (!m_materials[i].bumpMapFilename.empty())
@@ -271,7 +276,7 @@ void ModelOBJ::scale(float scaleFactor, float offset[3])
     }
 }
 
-void ModelOBJ::addTrianglePosTexCoordNormal(int index, int material, int v0,
+void ModelOBJ::addTrianglePosTexCoordNormal(GroupObject *currentObject, int index, int material, int v0,
                                             int v1, int v2, int vt0, int vt1,
                                             int vt2, int vn0, int vn1, int vn2)
 {
@@ -282,7 +287,6 @@ void ModelOBJ::addTrianglePosTexCoordNormal(int index, int material, int v0,
         0.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 0.0f
     };
-
     m_attributeBuffer[index] = material;
 
     vertex.position[0] = m_vertexCoords[v0 * 3];
@@ -293,8 +297,8 @@ void ModelOBJ::addTrianglePosTexCoordNormal(int index, int material, int v0,
     vertex.normal[0] = m_normals[vn0 * 3];
     vertex.normal[1] = m_normals[vn0 * 3 + 1];
     vertex.normal[2] = m_normals[vn0 * 3 + 2];
-    m_indexBuffer[index * 3] = addVertex(v0, &vertex);
-
+    m_indexBuffer[index * 3] = addVertex(currentObject, v0, &vertex);
+	
     vertex.position[0] = m_vertexCoords[v1 * 3];
     vertex.position[1] = m_vertexCoords[v1 * 3 + 1];
     vertex.position[2] = m_vertexCoords[v1 * 3 + 2];
@@ -303,7 +307,7 @@ void ModelOBJ::addTrianglePosTexCoordNormal(int index, int material, int v0,
     vertex.normal[0] = m_normals[vn1 * 3];
     vertex.normal[1] = m_normals[vn1 * 3 + 1];
     vertex.normal[2] = m_normals[vn1 * 3 + 2];
-    m_indexBuffer[index * 3 + 1] = addVertex(v1, &vertex);
+    m_indexBuffer[index * 3 + 1] = addVertex(currentObject, v1, &vertex);
 
     vertex.position[0] = m_vertexCoords[v2 * 3];
     vertex.position[1] = m_vertexCoords[v2 * 3 + 1];
@@ -313,21 +317,21 @@ void ModelOBJ::addTrianglePosTexCoordNormal(int index, int material, int v0,
     vertex.normal[0] = m_normals[vn2 * 3];
     vertex.normal[1] = m_normals[vn2 * 3 + 1];
     vertex.normal[2] = m_normals[vn2 * 3 + 2];
-    m_indexBuffer[index * 3 + 2] = addVertex(v2, &vertex);
+    m_indexBuffer[index * 3 + 2] = addVertex(currentObject, v2, &vertex);
 }
 
-int ModelOBJ::addVertex(int hash, const Vertex *pVertex)
+int ModelOBJ::addVertex(GroupObject *currentGroup, int hash, Vertex *pVertex)
 {
     int index = -1;
     std::map<int, std::vector<int> >::const_iterator iter = m_vertexCache.find(hash);
-
     if (iter == m_vertexCache.end())
     {
         // Vertex hash doesn't exist in the cache.
-
         index = static_cast<int>(m_vertexBuffer.size());
         m_vertexBuffer.push_back(*pVertex);
         m_vertexCache.insert(std::make_pair(hash, std::vector<int>(1, index)));
+
+		m_vertexBufferPointers.push_back( pVertex );
     }
     else
     {
@@ -354,9 +358,13 @@ int ModelOBJ::addVertex(int hash, const Vertex *pVertex)
             index = static_cast<int>(m_vertexBuffer.size());
             m_vertexBuffer.push_back(*pVertex);
             m_vertexCache[hash].push_back(index);
+
+			m_vertexBufferPointers.push_back( pVertex );
         }
     }
-
+	Vertex *v = new Vertex;
+	v = pVertex;
+	currentGroup->vertices.push_back( v );
     return index;
 }
 
@@ -366,13 +374,6 @@ void ModelOBJ::buildObjects()
 	int materialId = -1;
 	int numMaterials = 0;
 
-	/*
-	1. add new var m_ObjectMaterials
-	2. whenever usemtl invoked, add that new Material to m_ObjectMaterials
-	3. loop & count materials like first loop below
-	4. allocate memory for materials & reset counters like below
-	5. 
-	*/
 	//count number of materials
 	for (int i = 0; i < static_cast<int>(m_attributeBuffer.size()); i++)
     {
@@ -411,51 +412,6 @@ void ModelOBJ::buildObjects()
     //std::sort(m_meshes.begin(), m_meshes.end(), MeshCompFunc);
 }
 
-void ModelOBJ::buildMeshes()
-{
-    // Group the model's triangles based on material type.
-
-    Mesh *pMesh = 0;
-    int materialId = -1;
-    int numMeshes = 0;
-
-    // Count the number of meshes.
-    for (int i = 0; i < static_cast<int>(m_attributeBuffer.size()); ++i)
-    {
-        if (m_attributeBuffer[i] != materialId)
-        {
-            materialId = m_attributeBuffer[i];
-            ++numMeshes;
-        }
-    }
-
-    // Allocate memory for the meshes and reset counters.
-    m_numberOfMeshes = numMeshes;
-    m_meshes.resize(m_numberOfMeshes);
-    numMeshes = 0;
-    materialId = -1;
-
-    // Build the meshes. One mesh for each unique material.
-    for (int i = 0; i < static_cast<int>(m_attributeBuffer.size()); ++i)
-    {
-        if (m_attributeBuffer[i] != materialId)
-        {
-            materialId = m_attributeBuffer[i];
-            pMesh = &m_meshes[numMeshes++];            
-            pMesh->pMaterial = &m_materials[materialId];
-            pMesh->startIndex = i * 3;
-            ++pMesh->triangleCount;
-        }
-        else
-        {
-            ++pMesh->triangleCount;
-        }
-    }
-
-    // Sort the meshes based on its material alpha. Fully opaque meshes
-    // towards the front and fully transparent towards the back.
-    std::sort(m_meshes.begin(), m_meshes.end(), MeshCompFunc);
-}
 
 void ModelOBJ::generateNormals()
 {
@@ -889,15 +845,15 @@ void ModelOBJ::importGeometrySecondPass(FILE *pFile)
                 vn[1] = (vn[1] < 0) ? vn[1] + numNormals - 1 : vn[1] - 1;
                 vn[2] = (vn[2] < 0) ? vn[2] + numNormals - 1 : vn[2] - 1;
 
-				if ( currentMaterial->startIndex == -1 )
-					currentMaterial->startIndex = v[0];
+				//if ( currentMaterial->startIndex == -1 )
+				//	currentMaterial->startIndex = v[0];
 
-				currentMaterial->triangleCount++;
+				/*currentMaterial->triangleCount++;
 				currentMaterial->indices.push_back(v[0]);
 				currentMaterial->indices.push_back(v[1]);
-				currentMaterial->indices.push_back(v[2]);
+				currentMaterial->indices.push_back(v[2]);*/
 
-                addTrianglePosTexCoordNormal(numTriangles++, currentMaterial->id,
+                addTrianglePosTexCoordNormal(currentGroup, numTriangles++, currentMaterial->id,
                     v[0], v[1], v[2], vt[0], vt[1], vt[2], vn[0], vn[1], vn[2]);
 
                 v[1] = v[2];
@@ -910,7 +866,7 @@ void ModelOBJ::importGeometrySecondPass(FILE *pFile)
                     vt[2] = (vt[2] < 0) ? vt[2] + numTexCoords - 1 : vt[2] - 1;
                     vn[2] = (vn[2] < 0) ? vn[2] + numNormals - 1 : vn[2] - 1;
 
-                    addTrianglePosTexCoordNormal(numTriangles++, currentMaterial->id,
+                    addTrianglePosTexCoordNormal(currentGroup, numTriangles++, currentMaterial->id,
                         v[0], v[1], v[2], vt[0], vt[1], vt[2], vn[0], vn[1], vn[2]);
 
                     v[1] = v[2];

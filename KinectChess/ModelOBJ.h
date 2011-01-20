@@ -32,7 +32,7 @@ public:
         std::string colorMapFilename;
         std::string bumpMapFilename;
 
-		std::vector<int>	indices;
+		//std::vector<int>	indices;
 		int	id;
 		int startIndex;
 		int triangleCount;
@@ -46,6 +46,7 @@ public:
 		std::string				objectName;
 		std::string				groupName;
 		int						index;
+		std::vector<Vertex *>	vertices;
 	};
 
 	struct Mesh
@@ -59,6 +60,7 @@ public:
     ~ModelOBJ();
 
 	vector<GroupObject *>	getObjects(void);
+	GroupObject *getObject(int index);
 
     void destroy();
     bool import(const char *pszFilename, bool rebuildNormals = false);
@@ -75,7 +77,7 @@ public:
 
     const int *getIndexBuffer() const;
     int getIndexSize() const;
-
+	
     //const Material &getMaterial(int i) const; NWB
 	const Material &getMaterial(int i) const;
 
@@ -102,11 +104,11 @@ public:
 
 private:
     
-    void addTrianglePosTexCoordNormal(int index, int material,
+    void addTrianglePosTexCoordNormal(GroupObject *currentObject, int index, int material,
         int v0, int v1, int v2,
         int vt0, int vt1, int vt2,
         int vn0, int vn1, int vn2);
-    int addVertex(int hash, const Vertex *pVertex);
+    int addVertex(GroupObject *currentGroup, int hash, Vertex *pVertex);
     void bounds(float center[3], float &width, float &height,
         float &length, float &radius) const;
     void buildMeshes();
@@ -143,6 +145,7 @@ private:
     std::vector<Mesh> m_meshes;
     std::vector<Material> m_materials;
     std::vector<Vertex> m_vertexBuffer;
+	std::vector<Vertex *> m_vertexBufferPointers;
     std::vector<int> m_indexBuffer;
     std::vector<int> m_attributeBuffer;
     std::vector<float> m_vertexCoords;
