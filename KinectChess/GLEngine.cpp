@@ -160,6 +160,8 @@ GLvoid GLEngine::Initialize(GLint width, GLint height)
 
     //GL2Init();
 	GLenum err = glewInit();
+	selectedItem = NULL;
+	selectedSquare = NULL;
 
     supportsProgrammablePipeline = GL2SupportsGLVersion(2, 0);
 
@@ -369,6 +371,16 @@ void GLEngine::drawModelUsingFixedFuncPipeline()
             glDisableClientState(GL_VERTEX_ARRAY);
     }
 }
+ModelOBJ::GroupObject *GLEngine::getSelectedItem()
+{
+	return selectedItem;
+}
+
+void GLEngine::setSelectedItem( ModelOBJ::GroupObject *selected )
+{
+	selectedItem = selected;
+}
+
 
 void GLEngine::drawModelUsingProgrammablePipeline()
 {
@@ -379,18 +391,25 @@ void GLEngine::drawModelUsingProgrammablePipeline()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		
 	glUseProgram(blinnPhongShader);
-
 	const ModelOBJ::Material *pMaterial = 0;
+
 	// Stencil setup
 	glStencilOp( GL_KEEP, GL_KEEP, GL_REPLACE );
 	glEnable( GL_STENCIL_TEST );
-
 
 	objects = model.getObjects();
 	// Loop through objects...
 	for( int i=0 ; i < (int)objects.size(); ++i ) 
 	{
 		ModelOBJ::GroupObject *object = objects[i];
+
+		bool colorObject = false;
+		if ( selectedItem != NULL )
+		{
+			//We want to color this object light green to show selection
+			if ( selectedItem->index == object->index )
+				colorObject = true;
+		}
 		
 		// Draw to stencil buffer with object's index
 		glStencilFunc( GL_ALWAYS, object->index, 0xFF );
@@ -407,7 +426,7 @@ void GLEngine::drawModelUsingProgrammablePipeline()
 
 			if (pMaterial->bumpMapFilename.empty())
 			{
-				 //Bind the color map texture.
+					//Bind the color map texture.
 				texture = nullTexture;
 				if (enableTextures)
 				{
@@ -421,7 +440,7 @@ void GLEngine::drawModelUsingProgrammablePipeline()
 				glEnable(GL_TEXTURE_2D);
 				glBindTexture(GL_TEXTURE_2D, texture);
 
-				 //Update shader parameters.
+					//Update shader parameters.
 				glUniform1i(glGetUniformLocation(
 					blinnPhongShader, "colorMap"), 0);
 				glUniform1f(glGetUniformLocation(
@@ -449,15 +468,19 @@ void GLEngine::drawModelUsingProgrammablePipeline()
 					model.getVertexBuffer()->normal);
 			}
 
-			if (model.hasTangents())
+			if ( colorObject )
 			{
-				glClientActiveTexture(GL_TEXTURE1);
-				glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-				glTexCoordPointer(4, GL_FLOAT, model.getVertexSize(),
-					model.getVertexBuffer()->tangent);
-			}
+				//Change the color; push & pop the matrix so we only translate this one object
+				glColor4f(0.0f, 1.0f, 0.0f, 0.2f);
+				glPushMatrix();
+				glTranslatef(0.2f, 0.0f, 0.0f);
+			} else 
+				glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
 			glDrawElements( GL_TRIANGLES, pMaterial->triangleCount * 3, GL_UNSIGNED_INT, model.getIndexBuffer() + pMaterial->startIndex );
+
+			if ( colorObject )
+				glPopMatrix();
 
 			if (model.hasNormals())
 				glDisableClientState(GL_NORMAL_ARRAY);
@@ -480,31 +503,6 @@ void GLEngine::drawModelUsingProgrammablePipeline()
 	glBindTexture(GL_TEXTURE_2D, 0);
     glUseProgram(0);
     glDisable(GL_BLEND);
-}
-
-GLvoid GLEngine::drawObject( ModelOBJ::GroupObject *selected )
-{
-	//loop through all faces & draw them
-	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
-
-	for ( int n = 0; n < (int)selected->vertices.size(); n++ )
-	{
-		ModelOBJ::Vertex *vertex = selected->vertices[n];
-		drawFace(*vertex);
-	}
-
-	glMatrixMode(GL_MODELVIEW);
-	glPopMatrix();
-}
-
-GLvoid GLEngine::drawFace(ModelOBJ::Vertex &vertex)
-{
-	glBegin(GL_TRIANGLES);
-		glTexCoord2f( vertex.texCoord[0], vertex.texCoord[1] );
-		glNormal3f( vertex.normal[0], vertex.normal[1], vertex.normal[2] );
-		glVertex3d(  vertex.position[0], vertex.position[1], vertex.position[2] );
-	glEnd();
 }
 
 GLuint GLEngine::getTextWidth(const char *text)

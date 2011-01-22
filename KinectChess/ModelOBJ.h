@@ -5,6 +5,7 @@
 #include <map>
 #include <string>
 #include <vector>
+#include "Vector3.h"
 
 using namespace std;
 
@@ -46,7 +47,8 @@ public:
 		std::string				objectName;
 		std::string				groupName;
 		int						index;
-		std::vector<Vertex *>	vertices;
+		std::vector<Vector3 *>	vertices;
+		Vector3					center;
 	};
 
 	struct Mesh
@@ -103,7 +105,7 @@ public:
 
 
 private:
-    
+    void findObjectCenter( GroupObject *currentObject );
     void addTrianglePosTexCoordNormal(GroupObject *currentObject, int index, int material,
         int v0, int v1, int v2,
         int vt0, int vt1, int vt2,

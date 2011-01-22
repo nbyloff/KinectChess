@@ -48,8 +48,6 @@ public:
 
 	ModelOBJ getModel(void);
 	ModelOBJ::GroupObject *getObject(int index);
-	GLvoid GLEngine::drawObject( ModelOBJ::GroupObject *selected );
-	GLvoid GLEngine::drawFace(ModelOBJ::Vertex &vertex);
 	
 	GLvoid Initialize(GLint width, GLint height);
 	GLvoid establishProjectionMatrix(GLsizei width, GLsizei height);
@@ -79,6 +77,12 @@ public:
 
 	bool	supportProgrammablePipeline(void);
 
+	ModelOBJ::GroupObject *getSelectedItem();
+	void setSelectedItem( ModelOBJ::GroupObject *selected );
+
+	ModelOBJ::GroupObject *selectedItem;
+	ModelOBJ::GroupObject *selectedSquare;
+
 private:
 	Shader				*shader;
 	HWND                hWnd;
@@ -101,6 +105,8 @@ private:
 	GLuint				displayList;
 
 	vector<ModelOBJ::GroupObject *> objects;
+
+	
 
 
 };

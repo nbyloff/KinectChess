@@ -362,8 +362,10 @@ int ModelOBJ::addVertex(GroupObject *currentGroup, int hash, Vertex *pVertex)
 			m_vertexBufferPointers.push_back( pVertex );
         }
     }
-	Vertex *v = new Vertex;
-	v = pVertex;
+	Vector3 *v = new Vector3;
+	v->x = pVertex->position[0];
+	v->y = pVertex->position[1];
+	v->z = pVertex->position[2];
 	currentGroup->vertices.push_back( v );
     return index;
 }
@@ -902,6 +904,9 @@ void ModelOBJ::importGeometrySecondPass(FILE *pFile)
 			}
 		} else if (buffer[0] == 'g' ) { //group
 			//NWB
+			if ( currentGroup->vertices.size() > 0 )
+				findObjectCenter( currentGroup );
+
 			fscanf (pFile, "%s", oName);
 			objectName = oName;
 			if ( objectName == "default" )
@@ -946,6 +951,46 @@ void ModelOBJ::importGeometrySecondPass(FILE *pFile)
             fgets(buffer, sizeof(buffer), pFile);
         }
     }
+}
+
+void ModelOBJ::findObjectCenter( GroupObject *currentObject )
+{
+	//calc bounding box; center of all of vertices
+	float xmin, xmax;
+	float ymin, ymax;
+	float zmin, zmax;
+
+	currentObject->center = Vector3(0, 0, 0);
+	vector<Vector3 *> vertices = currentObject->vertices;
+
+	for ( int n = 0; n < (int)currentObject->vertices.size(); n++ )
+	{
+		Vector3 *vertex = currentObject->vertices[n];
+		if ( n == 0 )
+		{
+			xmin = xmax = vertices[n]->x;
+			ymin = ymax = vertices[n]->y;
+			zmin = zmax = vertices[n]->z;
+			continue;
+		}
+		if ( vertices[n]->x < xmin )
+			xmin = vertices[n]->x;
+		if ( vertices[n]->x > xmax )
+			xmax = vertices[n]->x;
+
+		if ( vertices[n]->y < ymin )
+			ymin = vertices[n]->y;
+		if ( vertices[n]->y > ymax )
+			ymax = vertices[n]->y;
+
+		if ( vertices[n]->z < zmin )
+			zmin = vertices[n]->z;
+		if ( vertices[n]->z > zmax )
+			zmax = vertices[n]->z;
+
+		currentObject->center += (*vertices[n]); //it's a pointer, don't forget to dereference!
+	}
+	currentObject->center /= vertices.size();
 }
 
 bool ModelOBJ::importMaterials(const char *pszFilename)

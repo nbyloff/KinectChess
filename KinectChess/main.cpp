@@ -25,7 +25,7 @@ int     MouseX = 0,
         RelY = 0;
 
 Camera cam;
-ModelOBJ::GroupObject *selectedItem = NULL;
+//ModelOBJ::GroupObject *selectedItem = NULL;
 bool moving = false; //we have piece selected, waiting for a location to be chosen
 
 
@@ -59,14 +59,13 @@ GLvoid drawScene(bool selection = false)
     else
         iGLEngine->drawModelUsingFixedFuncPipeline();
 
-	if ( selectedItem )
+	/*if ( selectedItem )
 	{
 		ModelOBJ::GroupObject *obj = selectedItem;
 		glDisable(GL_LIGHTING); //don't want light in the calcluations
 		glColor4f(0.0f, 1.0f, 0.0f, 0.2f);
-		iGLEngine->drawObject( obj );
 		moving = true;
-	}
+	}*/
 
 	glEnable(GL_LIGHTING);
 	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
@@ -98,7 +97,8 @@ void handleSelections(void)
 
 		glGetIntegerv(GL_VIEWPORT, viewport);
 		glReadPixels(state.x,viewport[3] - state.y,1,1, GL_STENCIL_INDEX,GL_UNSIGNED_BYTE,(void *)pixel);
-		selectedItem = iGLEngine->getObject( (int)pixel[0] );
+		
+		ModelOBJ::GroupObject *selectedItem = iGLEngine->getObject( (int)pixel[0] );
 	}
 }
 
