@@ -17,6 +17,7 @@ GLEngine::~GLEngine()
 
 GLvoid GLEngine::Uninitialize(GLvoid)
 {
+	GLEngine::getEngine()->getModel().destroy();
 	delete GLEngine::getEngine();
 }
 
@@ -178,20 +179,6 @@ GLvoid GLEngine::Initialize(GLint width, GLint height)
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
 	glClearStencil(0);
-
-    /*glActiveTexture(GL_TEXTURE1);
-    glEnable(GL_TEXTURE_2D);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-    glActiveTexture(GL_TEXTURE0);
-    glEnable(GL_TEXTURE_2D);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);*/
 
     if (supportsProgrammablePipeline)
     {
@@ -426,7 +413,7 @@ void GLEngine::drawModelUsingProgrammablePipeline()
 
 			if (pMaterial->bumpMapFilename.empty())
 			{
-					//Bind the color map texture.
+				//Bind the color map texture.
 				texture = nullTexture;
 				if (enableTextures)
 				{
@@ -440,11 +427,17 @@ void GLEngine::drawModelUsingProgrammablePipeline()
 				glEnable(GL_TEXTURE_2D);
 				glBindTexture(GL_TEXTURE_2D, texture);
 
-					//Update shader parameters.
+				//Update shader parameters.
 				glUniform1i(glGetUniformLocation(
 					blinnPhongShader, "colorMap"), 0);
 				glUniform1f(glGetUniformLocation(
 					blinnPhongShader, "materialAlpha"), pMaterial->alpha);
+				if ( colorObject )
+					glUniform4f(glGetUniformLocation(
+						blinnPhongShader, "Ambient"), 0.0f, 1.0f, 0.0f, 1.0f);
+				else 
+					glUniform4f(glGetUniformLocation(
+						blinnPhongShader, "Ambient"), 0.0f, 0.0f, 0.0f, 0.0f);
 			}
 			if (model.hasPositions())
 			{
@@ -472,15 +465,15 @@ void GLEngine::drawModelUsingProgrammablePipeline()
 			{
 				//Change the color; push & pop the matrix so we only translate this one object
 				glColor4f(0.0f, 1.0f, 0.0f, 0.2f);
-				glPushMatrix();
-				glTranslatef(0.2f, 0.0f, 0.0f);
+				//glPushMatrix();
+				//glTranslatef(0.2f, 0.0f, 0.0f);
 			} else 
 				glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
 			glDrawElements( GL_TRIANGLES, pMaterial->triangleCount * 3, GL_UNSIGNED_INT, model.getIndexBuffer() + pMaterial->startIndex );
 
-			if ( colorObject )
-				glPopMatrix();
+			//if ( colorObject )
+			//	glPopMatrix();
 
 			if (model.hasNormals())
 				glDisableClientState(GL_NORMAL_ARRAY);

@@ -99,6 +99,7 @@ void handleSelections(void)
 		glReadPixels(state.x,viewport[3] - state.y,1,1, GL_STENCIL_INDEX,GL_UNSIGNED_BYTE,(void *)pixel);
 		
 		ModelOBJ::GroupObject *selectedItem = iGLEngine->getObject( (int)pixel[0] );
+		iGLEngine->setSelectedItem( selectedItem );
 	}
 }
 

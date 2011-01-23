@@ -134,6 +134,58 @@ void ModelOBJ::destroy()
 
     m_materialCache.clear();
     m_vertexCache.clear();
+
+	/*for ( int m = 0; m < (int)materials.size(); m++ )
+	{
+		if ( materials[m]->ambientMap != NULL )
+			delete materials[m]->ambientMap;
+
+		if ( materials[m]->diffuseMap != NULL )
+			delete materials[m]->diffuseMap;
+
+		if ( materials[m]->specularMap != NULL )
+			delete materials[m]->specularMap;
+
+		if ( materials[m]->emissionMap != NULL )
+			delete materials[m]->emissionMap;
+
+		if ( materials[m]->shininessMap != NULL )
+			delete materials[m]->shininessMap;
+
+		if ( materials[m]->transparencyMap != NULL )
+			delete materials[m]->transparencyMap;
+
+		if ( materials[m]->bumpMap != NULL )
+			delete materials[m]->bumpMap;
+
+		delete materials[m];
+	}
+
+	for ( int m = 0; m < (int)vertices.size(); m++ )
+		delete vertices[m];
+
+	for ( int m = 0; m < (int)normals.size(); m++ )
+		delete normals[m];
+
+	for ( int m = 0; m < (int)UVWs.size(); m++ )
+		delete UVWs[m];
+
+	for ( int i = 0; i < (int)objects.size(); i++ )
+	{
+		GroupObject *object = objects[i];
+		for ( int f = 0; f < (int)object->faces.size(); f++ )
+		{
+			delete object->faces[f]->vertices;
+			delete object->faces[f]->normals;
+			delete object->faces[f]->UVWs;
+			delete object->faces[f];
+		}
+	}
+	UVWs.clear();
+	normals.clear();
+	vertices.clear();
+	objects.clear();
+	materials.clear();*/
 }
 
 bool ModelOBJ::import(const char *pszFilename, bool rebuildNormals)

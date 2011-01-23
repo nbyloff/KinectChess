@@ -42,6 +42,7 @@ void main()
 
 uniform sampler2D colorMap;
 uniform float materialAlpha;
+uniform vec4 Ambient;
 
 varying vec3 normal;
 
@@ -58,6 +59,6 @@ void main()
     vec4 specular = gl_FrontLightProduct[0].specular * power;
     vec4 color = gl_FrontLightModelProduct.sceneColor + ambient + diffuse + specular;
     
-    gl_FragColor = color * texture2D(colorMap, gl_TexCoord[0].st);
+    gl_FragColor = color * texture2D(colorMap, gl_TexCoord[0].st) + Ambient;
     gl_FragColor.a = materialAlpha;
 }
