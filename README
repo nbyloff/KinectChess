@@ -1,5 +1,8 @@
 This is just a sample project learning OpenGL. Currently it does not work, 
-GLEngine::drawUsingProgrammablePipeline() is the draw method, which needs work.
+Currently try to fix moving pieces around and determing how to translate a game piece to the
+square that is clicked (after a game piece is selected).
+
+No game logic has been implemented, just working on moving to the correct square.
 
 This code is not using the model
 as a resource file, so on line 9 of main.cpp, you MUST put in the full path to the obj file

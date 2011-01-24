@@ -467,6 +467,7 @@ void ModelOBJ::buildObjects()
 }
 
 
+
 void ModelOBJ::generateNormals()
 {
     const int *pTriangle = 0;
@@ -956,7 +957,8 @@ void ModelOBJ::importGeometrySecondPass(FILE *pFile)
 			}
 		} else if (buffer[0] == 'g' ) { //group
 			//NWB
-			if ( currentGroup->vertices.size() > 0 )
+			int pos = currentGroup->objectName.rfind("Object",0);
+			if ( currentGroup->vertices.size() > 0  && pos == 0 )
 				findObjectCenter( currentGroup );
 
 			fscanf (pFile, "%s", oName);
@@ -1014,34 +1016,25 @@ void ModelOBJ::findObjectCenter( GroupObject *currentObject )
 
 	currentObject->center = Vector3(0, 0, 0);
 	vector<Vector3 *> vertices = currentObject->vertices;
+	Vector3 *sumVector = new Vector3;
 
 	for ( int n = 0; n < (int)currentObject->vertices.size(); n++ )
 	{
 		Vector3 *vertex = currentObject->vertices[n];
-		if ( n == 0 )
-		{
-			xmin = xmax = vertices[n]->x;
+		//if ( n == 0 )
+		//{
+			/*xmin = xmax = vertices[n]->x;
 			ymin = ymax = vertices[n]->y;
-			zmin = zmax = vertices[n]->z;
-			continue;
-		}
-		if ( vertices[n]->x < xmin )
-			xmin = vertices[n]->x;
-		if ( vertices[n]->x > xmax )
-			xmax = vertices[n]->x;
+			zmin = zmax = vertices[n]->z;*/
+			//continue;
+		//}
+		sumVector->x += vertex->x;
+		sumVector->y += vertex->y;
+		sumVector->z += vertex->z;
 
-		if ( vertices[n]->y < ymin )
-			ymin = vertices[n]->y;
-		if ( vertices[n]->y > ymax )
-			ymax = vertices[n]->y;
-
-		if ( vertices[n]->z < zmin )
-			zmin = vertices[n]->z;
-		if ( vertices[n]->z > zmax )
-			zmax = vertices[n]->z;
-
-		currentObject->center += (*vertices[n]); //it's a pointer, don't forget to dereference!
+		
 	}
+	currentObject->center += (*sumVector); //it's a pointer, don't forget to dereference!
 	currentObject->center /= vertices.size();
 }
 

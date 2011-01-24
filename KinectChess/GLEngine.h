@@ -48,6 +48,9 @@ public:
 
 	ModelOBJ getModel(void);
 	ModelOBJ::GroupObject *getObject(int index);
+
+	Vector3 ScreenToSpace(int x, int y);
+	void setMovePoint(Vector3 point);
 	
 	GLvoid Initialize(GLint width, GLint height);
 	GLvoid establishProjectionMatrix(GLsizei width, GLsizei height);
@@ -79,6 +82,13 @@ public:
 
 	ModelOBJ::GroupObject *getSelectedItem();
 	void setSelectedItem( ModelOBJ::GroupObject *selected );
+	void itemSelected( bool val );
+	bool getIsItemSelected(void);
+
+	ModelOBJ::GroupObject *getSelectedSquare(void);
+	void setSelectedSquare( ModelOBJ::GroupObject *selected );
+	void squareSelected( bool val );
+	bool getIsSquareSelected(void);
 
 	ModelOBJ::GroupObject *selectedItem;
 	ModelOBJ::GroupObject *selectedSquare;
@@ -105,6 +115,10 @@ private:
 	GLuint				displayList;
 
 	vector<ModelOBJ::GroupObject *> objects;
+
+	bool				isObjectSelected;
+	bool				isSquareSelected;
+	Vector3				moveTo;
 
 	
 

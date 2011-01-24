@@ -67,8 +67,8 @@ GLvoid drawScene(bool selection = false)
 		moving = true;
 	}*/
 
-	glEnable(GL_LIGHTING);
-	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	//glEnable(GL_LIGHTING);
+	//glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
 	if ( selection == true )
 		return;
@@ -91,15 +91,43 @@ void handleSelections(void)
 	else if ( buttonDown )
 	{
 		buttonDown = false;
-		//VTM 47 2min
-		GLubyte pixel[1];
-		GLint viewport[4];
-
-		glGetIntegerv(GL_VIEWPORT, viewport);
-		glReadPixels(state.x,viewport[3] - state.y,1,1, GL_STENCIL_INDEX,GL_UNSIGNED_BYTE,(void *)pixel);
 		
-		ModelOBJ::GroupObject *selectedItem = iGLEngine->getObject( (int)pixel[0] );
-		iGLEngine->setSelectedItem( selectedItem );
+		if ( !iGLEngine->getIsSquareSelected() && iGLEngine->getIsItemSelected() )
+		{
+			GLubyte pixel[1];
+			GLint viewport[4];
+
+			glGetIntegerv(GL_VIEWPORT, viewport);
+			glReadPixels(state.x,viewport[3] - state.y,1,1, GL_STENCIL_INDEX,GL_UNSIGNED_BYTE,(void *)pixel);
+		
+			ModelOBJ::GroupObject *selectedItem = iGLEngine->getObject( (int)pixel[0] );
+			iGLEngine->setSelectedSquare( selectedItem );
+			iGLEngine->squareSelected( true );
+
+			Vector3 moveTo = iGLEngine->ScreenToSpace( state.x, state.y );
+			//Vector3 moveTo = selectedItem->center;
+			iGLEngine->setMovePoint(moveTo);
+			int x = 0;
+		}
+
+		if ( !iGLEngine->getIsItemSelected() )
+		{
+			GLubyte pixel[1];
+			GLint viewport[4];
+
+			glGetIntegerv(GL_VIEWPORT, viewport);
+			glReadPixels(state.x,viewport[3] - state.y,1,1, GL_STENCIL_INDEX,GL_UNSIGNED_BYTE,(void *)pixel);
+		
+			if ( (int)pixel[0] != 0 )
+			{
+				ModelOBJ::GroupObject *selectedItem = iGLEngine->getObject( (int)pixel[0] );
+				if ( selectedItem->objectName != "Board" )
+				{
+					iGLEngine->setSelectedItem( selectedItem );
+					iGLEngine->itemSelected( true );
+				}
+			}
+		}
 	}
 }
 

@@ -163,6 +163,8 @@ GLvoid GLEngine::Initialize(GLint width, GLint height)
 	GLenum err = glewInit();
 	selectedItem = NULL;
 	selectedSquare = NULL;
+	isObjectSelected = false;
+	isSquareSelected = false;
 
     supportsProgrammablePipeline = GL2SupportsGLVersion(2, 0);
 
@@ -279,7 +281,6 @@ GLvoid GLEngine::drawText(GLint x, GLint y, const char *in_text, ...)
 	glLoadIdentity();
 
 	glTranslated(x, y, 0);
-	//24 min VTM 23 Drawing text???
 	glListBase(fontBase);
 	glCallLists( (GLsizei)strlen(text), GL_BYTE, text);
 
@@ -368,6 +369,57 @@ void GLEngine::setSelectedItem( ModelOBJ::GroupObject *selected )
 	selectedItem = selected;
 }
 
+void GLEngine::itemSelected( bool val )
+{
+	isObjectSelected = val;
+}
+
+bool GLEngine::getIsItemSelected(void)
+{
+	return isObjectSelected;
+}
+
+
+ModelOBJ::GroupObject *GLEngine::getSelectedSquare()
+{
+	return selectedSquare;
+}
+
+void GLEngine::setSelectedSquare( ModelOBJ::GroupObject *selected )
+{
+	selectedSquare = selected;
+}
+
+void GLEngine::squareSelected( bool val )
+{
+	isSquareSelected = val;
+}
+
+bool GLEngine::getIsSquareSelected(void)
+{
+	return isSquareSelected;
+}
+
+Vector3 GLEngine::ScreenToSpace(int x, int y)
+{
+    GLint viewport[4];
+    GLdouble modelview[16];
+    GLdouble projection[16];
+    GLfloat winX, winY, winZ;
+    GLdouble posX, posY, posZ;
+
+    glGetDoublev(GL_MODELVIEW_MATRIX, modelview);
+    glGetDoublev(GL_PROJECTION_MATRIX, projection);
+    glGetIntegerv(GL_VIEWPORT, viewport);
+
+    winX = (float) x;
+    winY = (float) viewport[3] - (float) y;
+    glReadPixels(x, int(winY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ);
+
+    gluUnProject(winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);
+
+    return Vector3((float) posX, (float) posY, (float) posZ);
+}
 
 void GLEngine::drawModelUsingProgrammablePipeline()
 {
@@ -390,12 +442,12 @@ void GLEngine::drawModelUsingProgrammablePipeline()
 	{
 		ModelOBJ::GroupObject *object = objects[i];
 
-		bool colorObject = false;
+		bool moveObject = false;
 		if ( selectedItem != NULL )
 		{
 			//We want to color this object light green to show selection
 			if ( selectedItem->index == object->index )
-				colorObject = true;
+				moveObject = true;
 		}
 		
 		// Draw to stencil buffer with object's index
@@ -432,7 +484,7 @@ void GLEngine::drawModelUsingProgrammablePipeline()
 					blinnPhongShader, "colorMap"), 0);
 				glUniform1f(glGetUniformLocation(
 					blinnPhongShader, "materialAlpha"), pMaterial->alpha);
-				if ( colorObject )
+				if ( moveObject )
 					glUniform4f(glGetUniformLocation(
 						blinnPhongShader, "Ambient"), 0.0f, 1.0f, 0.0f, 1.0f);
 				else 
@@ -461,19 +513,17 @@ void GLEngine::drawModelUsingProgrammablePipeline()
 					model.getVertexBuffer()->normal);
 			}
 
-			if ( colorObject )
+			if ( isObjectSelected && isSquareSelected && moveObject )
 			{
-				//Change the color; push & pop the matrix so we only translate this one object
-				glColor4f(0.0f, 1.0f, 0.0f, 0.2f);
-				//glPushMatrix();
-				//glTranslatef(0.2f, 0.0f, 0.0f);
-			} else 
-				glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+				glPushMatrix();
+				//glTranslatef(moveTo.x, 0.0f, moveTo.z);
+				glTranslatef(-0.10f, 0.0f, 0.05f);
+			}
 
 			glDrawElements( GL_TRIANGLES, pMaterial->triangleCount * 3, GL_UNSIGNED_INT, model.getIndexBuffer() + pMaterial->startIndex );
 
-			//if ( colorObject )
-			//	glPopMatrix();
+			if ( isObjectSelected != NULL && isSquareSelected != NULL )
+				glPopMatrix();
 
 			if (model.hasNormals())
 				glDisableClientState(GL_NORMAL_ARRAY);
@@ -496,6 +546,11 @@ void GLEngine::drawModelUsingProgrammablePipeline()
 	glBindTexture(GL_TEXTURE_2D, 0);
     glUseProgram(0);
     glDisable(GL_BLEND);
+}
+
+void GLEngine::setMovePoint(Vector3 point)
+{
+	moveTo = point;
 }
 
 GLuint GLEngine::getTextWidth(const char *text)
