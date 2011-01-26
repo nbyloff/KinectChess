@@ -78,8 +78,6 @@ void GLEngine::loadModel(const char *pszFilename)
     {
         throw std::runtime_error("Failed to load model.");
     }
-
-    model.normalize();
 	
     // Load any associated textures.
     // Note the path where the textures are assumed to be located.
@@ -400,27 +398,6 @@ bool GLEngine::getIsSquareSelected(void)
 	return isSquareSelected;
 }
 
-Vector3 GLEngine::ScreenToSpace(int x, int y)
-{
-    GLint viewport[4];
-    GLdouble modelview[16];
-    GLdouble projection[16];
-    GLfloat winX, winY, winZ;
-    GLdouble posX, posY, posZ;
-
-    glGetDoublev(GL_MODELVIEW_MATRIX, modelview);
-    glGetDoublev(GL_PROJECTION_MATRIX, projection);
-    glGetIntegerv(GL_VIEWPORT, viewport);
-
-    winX = (float) x;
-    winY = (float) viewport[3] - (float) y;
-    glReadPixels(x, int(winY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ);
-
-    gluUnProject(winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);
-
-    return Vector3((float) posX, (float) posY, (float) posZ);
-}
-
 void GLEngine::drawModelUsingProgrammablePipeline()
 {
 	ModelTextures::const_iterator iter;
@@ -454,7 +431,7 @@ void GLEngine::drawModelUsingProgrammablePipeline()
 		glStencilFunc( GL_ALWAYS, object->index, 0xFF );
 
 		// Loop through materials used by object...
-		for( int j=0 ; j < (int)object->materialIds.size() ; ++j ) 
+		for( int j=0 ; j < (int)object->materials.size() ; ++j ) 
 		{
 			ModelOBJ::Material *pMaterial = object->materials[j];
 
@@ -516,8 +493,7 @@ void GLEngine::drawModelUsingProgrammablePipeline()
 			if ( isObjectSelected && isSquareSelected && moveObject )
 			{
 				glPushMatrix();
-				//glTranslatef(moveTo.x, 0.0f, moveTo.z);
-				glTranslatef(-0.10f, 0.0f, 0.05f);
+				glTranslatef(moveTo.x, 0.0f, moveTo.z);
 			}
 
 			glDrawElements( GL_TRIANGLES, pMaterial->triangleCount * 3, GL_UNSIGNED_INT, model.getIndexBuffer() + pMaterial->startIndex );

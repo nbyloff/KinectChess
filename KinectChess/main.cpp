@@ -6,7 +6,7 @@
 
 #define GLUT_KEY_ESCAPE		27
 
-#define CHESS_BOARD			"D:\\src\\games\\KinectChess\\KinectChess\\Content\\Models\\chess-finish.obj"
+#define CHESS_BOARD			"../KinectChess/Content/Models/chess-finish.obj"
 
 //multi-platform
 GLsizei windowWidth = 800;
@@ -104,8 +104,8 @@ void handleSelections(void)
 			iGLEngine->setSelectedSquare( selectedItem );
 			iGLEngine->squareSelected( true );
 
-			Vector3 moveTo = iGLEngine->ScreenToSpace( state.x, state.y );
-			//Vector3 moveTo = selectedItem->center;
+			//Vector3 moveTo = iGLEngine->ScreenToSpace( state.x, state.y );
+			Vector3 moveTo = selectedItem->center;
 			iGLEngine->setMovePoint(moveTo);
 			int x = 0;
 		}

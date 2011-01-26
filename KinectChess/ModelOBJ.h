@@ -66,7 +66,6 @@ public:
 
     void destroy();
     bool import(const char *pszFilename, bool rebuildNormals = false);
-    void normalize(float scaleTo = 1.0f, bool center = true);
     void reverseWinding();
 
     // Getter methods.
@@ -113,14 +112,10 @@ private:
     int addVertex(GroupObject *currentGroup, int hash, Vertex *pVertex);
     void bounds(float center[3], float &width, float &height,
         float &length, float &radius) const;
-    void buildMeshes();
 	void buildObjects();
-    void generateNormals();
-    void generateTangents();
     void importGeometryFirstPass(FILE *pFile);
     void importGeometrySecondPass(FILE *pFile);
     bool importMaterials(const char *pszFilename);
-    void scale(float scaleFactor, float offset[3]);
 
     bool m_hasPositions;
     bool m_hasTextureCoords;

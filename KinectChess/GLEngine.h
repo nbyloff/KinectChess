@@ -49,7 +49,6 @@ public:
 	ModelOBJ getModel(void);
 	ModelOBJ::GroupObject *getObject(int index);
 
-	Vector3 ScreenToSpace(int x, int y);
 	void setMovePoint(Vector3 point);
 	
 	GLvoid Initialize(GLint width, GLint height);

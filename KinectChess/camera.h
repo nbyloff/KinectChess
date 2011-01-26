@@ -13,7 +13,7 @@ public:
     : Position(position), Rotation(rotation), Pivot(pivot)
     {}
     Camera()
-    : Position(0,0,0.9), Rotation(0,45)
+    : Position(0,0,200), Rotation(0,45)
     {}
 
     // The world is being moved around the camera, hence the minus
