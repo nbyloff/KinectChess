@@ -1,4 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
+	<File name="GLEngine.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="11550" topLine="388" />
+	</File>
+	<File name="GLEngine.h" open="1" top="0" tabpos="2">
+		<Cursor position="266" topLine="0" />
+	</File>
+	<File name="Shader.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="18" topLine="0" />
+	</File>
+	<File name="Shader.h" open="1" top="0" tabpos="1">
+		<Cursor position="684" topLine="0" />
+	</File>
+	<File name="Texture.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="bitmap.cpp" open="1" top="0" tabpos="8">
+		<Cursor position="9413" topLine="359" />
+	</File>
+	<File name="camera.h" open="1" top="0" tabpos="6">
+		<Cursor position="379" topLine="0" />
+	</File>
+	<File name="main.cpp" open="1" top="1" tabpos="7">
+		<Cursor position="5220" topLine="193" />
+	</File>
 </CodeBlocks_layout_file>
