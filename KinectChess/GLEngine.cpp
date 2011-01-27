@@ -18,6 +18,7 @@ GLEngine::~GLEngine()
 GLvoid GLEngine::Uninitialize(GLvoid)
 {
 	GLEngine::getEngine()->getModel().destroy();
+	delete GLEngine::getEngine()->shader;
 	delete GLEngine::getEngine();
 }
 
@@ -73,7 +74,6 @@ GLuint GLEngine::loadTexture(const char *pszFilename)
 void GLEngine::loadModel(const char *pszFilename)
 {
     // Import the OBJ file and normalize to unit length.		
-
     if (!model.import(pszFilename))
     {
         throw std::runtime_error("Failed to load model.");
@@ -81,7 +81,6 @@ void GLEngine::loadModel(const char *pszFilename)
 	
     // Load any associated textures.
     // Note the path where the textures are assumed to be located.
-
     const ModelOBJ::Material *pMaterial = 0;
     GLuint textureId = 0;
     std::string::size_type offset = 0;
@@ -92,7 +91,6 @@ void GLEngine::loadModel(const char *pszFilename)
         pMaterial = &model.getMaterial(i);
 
         // Look for and load any diffuse color map textures.
-
         if (pMaterial->colorMapFilename.empty())
             continue;
 
@@ -116,7 +114,6 @@ void GLEngine::loadModel(const char *pszFilename)
             modelTextures[pMaterial->colorMapFilename] = textureId;
 
         // Look for and load any normal map textures.
-
         if (pMaterial->bumpMapFilename.empty())
             continue;
 
@@ -157,7 +154,6 @@ GLvoid GLEngine::establishProjectionMatrix(GLsizei width, GLsizei height)
 GLvoid GLEngine::Initialize(GLint width, GLint height)
 {
 
-    //GL2Init();
 	GLenum err = glewInit();
 	selectedItem = NULL;
 	selectedSquare = NULL;
@@ -208,7 +204,6 @@ bool GLEngine::extensionSupported(const char *pszExtensionName)
     if (!pszWGLExtensions)
     {
         // WGL_ARB_extensions_string.
-
         typedef const char *(WINAPI * PFNWGLGETEXTENSIONSSTRINGARBPROC)(HDC);
 
         PFNWGLGETEXTENSIONSSTRINGARBPROC wglGetExtensionsStringARB =
@@ -490,15 +485,15 @@ void GLEngine::drawModelUsingProgrammablePipeline()
 					model.getVertexBuffer()->normal);
 			}
 
-			if ( isObjectSelected && isSquareSelected && moveObject )
+			if ( object->position.moved )
 			{
 				glPushMatrix();
-				glTranslatef(moveTo.x, 0.0f, moveTo.z);
+				glTranslatef(object->position.translate.x, 0.0f, object->position.translate.z);
 			}
 
 			glDrawElements( GL_TRIANGLES, pMaterial->triangleCount * 3, GL_UNSIGNED_INT, model.getIndexBuffer() + pMaterial->startIndex );
 
-			if ( isObjectSelected != NULL && isSquareSelected != NULL )
+			if ( object->position.moved )
 				glPopMatrix();
 
 			if (model.hasNormals())
@@ -514,7 +509,13 @@ void GLEngine::drawModelUsingProgrammablePipeline()
 				glDisableClientState(GL_VERTEX_ARRAY);
 
 		}
-		
+		if ( moveObject && isSquareSelected )
+		{
+			selectedItem = NULL; //Piece has moved; Stop drawing piece green
+			selectedSquare = NULL;
+			isObjectSelected = false;
+			isSquareSelected = false;
+		}
 	}
 	glDisableClientState(GL_NORMAL_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);

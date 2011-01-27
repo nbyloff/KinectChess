@@ -5,7 +5,7 @@
 #include <map>
 #include <string>
 #include <vector>
-#include "Vector3.h"
+#include "Transform.h"
 
 using namespace std;
 
@@ -49,6 +49,9 @@ public:
 		int						index;
 		std::vector<Vector3 *>	vertices;
 		Vector3					center;
+		Vector3					distance;
+		GroupObject				*square;
+		Transform				position;
 	};
 
 	struct Mesh
@@ -112,6 +115,8 @@ private:
     int addVertex(GroupObject *currentGroup, int hash, Vertex *pVertex);
     void bounds(float center[3], float &width, float &height,
         float &length, float &radius) const;
+	void findObjectPosition( GroupObject *obj );
+	void findDistances();
 	void buildObjects();
     void importGeometryFirstPass(FILE *pFile);
     void importGeometrySecondPass(FILE *pFile);

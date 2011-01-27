@@ -233,6 +233,7 @@ bool ModelOBJ::import(const char *pszFilename, bool rebuildNormals)
 
     // Perform post import tasks.
 	buildObjects();
+	findDistances();
     bounds(m_center, m_width, m_height, m_length, m_radius);
 
     return true;
@@ -360,6 +361,39 @@ int ModelOBJ::addVertex(GroupObject *currentGroup, int hash, Vertex *pVertex)
 	v->z = pVertex->position[2];
 	currentGroup->vertices.push_back( v );
     return index;
+}
+
+void ModelOBJ::findDistances()
+{
+	for ( int i = 0; i < (int)objects.size(); i++ )
+	{
+		GroupObject *obj = objects[i];
+		int pos = obj->objectName.rfind("Object",0);
+		if ( obj->objectName != "Board" && pos == -1 ) //White or black game piece
+		{
+			findObjectPosition(obj);
+		}
+	}
+}
+
+void ModelOBJ::findObjectPosition( GroupObject *obj ) 
+{
+	for ( int i = 0; i < (int)objects.size(); i++ )
+	{
+		GroupObject *square = objects[i];
+		int pos = square->objectName.rfind("Object",0);	
+		if ( pos == 0 ) //found a square
+		{
+			Vector3 distance = obj->center.Distance(square->center);
+			if ( obj->distance.x == 0 || obj->distance.x > distance.x )
+			{
+				obj->distance = distance;
+				obj->square = square;
+			}
+			
+		}
+		
+	}
 }
 
 void ModelOBJ::buildObjects()
@@ -643,8 +677,8 @@ void ModelOBJ::importGeometrySecondPass(FILE *pFile)
 			}
 		} else if (buffer[0] == 'g' ) { //group
 			//NWB
-			int pos = currentGroup->objectName.rfind("Object",0);
-			if ( currentGroup->vertices.size() > 0  && pos == 0 )
+			//int pos = currentGroup->objectName.rfind("Object",0);
+			if ( currentGroup->vertices.size() > 0 ) // && pos == 0 
 				findObjectCenter( currentGroup );
 
 			fscanf (pFile, "%s", oName);

@@ -104,8 +104,11 @@ void handleSelections(void)
 			iGLEngine->setSelectedSquare( selectedItem );
 			iGLEngine->squareSelected( true );
 
-			//Vector3 moveTo = iGLEngine->ScreenToSpace( state.x, state.y );
-			Vector3 moveTo = selectedItem->center;
+			ModelOBJ::GroupObject *piece = iGLEngine->getSelectedItem();
+			Vector3 moveTo = selectedItem->center.operator-( piece->square->center );
+			piece->square = selectedItem;
+			piece->position.setTranslate( moveTo.x, moveTo.y, moveTo.z );
+			piece->position.moved = true;
 			iGLEngine->setMovePoint(moveTo);
 			int x = 0;
 		}
@@ -121,7 +124,8 @@ void handleSelections(void)
 			if ( (int)pixel[0] != 0 )
 			{
 				ModelOBJ::GroupObject *selectedItem = iGLEngine->getObject( (int)pixel[0] );
-				if ( selectedItem->objectName != "Board" )
+				int pos = selectedItem->objectName.rfind("Object",0);
+				if ( selectedItem->objectName != "Board" && pos == -1 )
 				{
 					iGLEngine->setSelectedItem( selectedItem );
 					iGLEngine->itemSelected( true );
