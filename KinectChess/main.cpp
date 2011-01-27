@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "SDL.h"
+#include "SDL\SDL.h"
 #include "GLEngine.h"
 #include "Control.h"
 #include "camera.h"
@@ -37,7 +37,7 @@ GLvoid establishProjectionMatrix(GLsizei width, GLsizei height)
 	glMatrixMode(GL_PROJECTION);
 
 	glLoadIdentity();
-	
+
 	//cast to float because vars are int's
 	gluPerspective(45.0f, (GLfloat)width / (GLfloat)height, 0.1f, 1000.0f); //adjust for clipping near / far
 }
@@ -91,7 +91,7 @@ void handleSelections(void)
 	else if ( buttonDown )
 	{
 		buttonDown = false;
-		
+
 		if ( !iGLEngine->getIsSquareSelected() && iGLEngine->getIsItemSelected() )
 		{
 			GLubyte pixel[1];
@@ -99,7 +99,7 @@ void handleSelections(void)
 
 			glGetIntegerv(GL_VIEWPORT, viewport);
 			glReadPixels(state.x,viewport[3] - state.y,1,1, GL_STENCIL_INDEX,GL_UNSIGNED_BYTE,(void *)pixel);
-		
+
 			ModelOBJ::GroupObject *selectedItem = iGLEngine->getObject( (int)pixel[0] );
 			iGLEngine->setSelectedSquare( selectedItem );
 			iGLEngine->squareSelected( true );
@@ -110,7 +110,6 @@ void handleSelections(void)
 			piece->position.setTranslate( moveTo.x, moveTo.y, moveTo.z );
 			piece->position.moved = true;
 			iGLEngine->setMovePoint(moveTo);
-			int x = 0;
 		}
 
 		if ( !iGLEngine->getIsItemSelected() )
@@ -120,7 +119,7 @@ void handleSelections(void)
 
 			glGetIntegerv(GL_VIEWPORT, viewport);
 			glReadPixels(state.x,viewport[3] - state.y,1,1, GL_STENCIL_INDEX,GL_UNSIGNED_BYTE,(void *)pixel);
-		
+
 			if ( (int)pixel[0] != 0 )
 			{
 				ModelOBJ::GroupObject *selectedItem = iGLEngine->getObject( (int)pixel[0] );
@@ -135,13 +134,13 @@ void handleSelections(void)
 	}
 }
 
-GLvoid displayFPS(GLvoid)
+GLvoid displayFPS()
 {
 	//execute first call, then we can refer back to it
 	static long lastTime = SDL_GetTicks();
 	//how many times has this function been called?
 	static long loops = 0;
-	//store fps of last run through 
+	//store fps of last run through
 	static GLfloat fps = 0.0f;
 
 	int newTime = SDL_GetTicks();
@@ -200,7 +199,7 @@ void Resize(int w, int h)
 }
 
 
-int main (int argc, char* argv[]) 
+int main (int argc, char* argv[])
 {
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0 )
@@ -221,7 +220,7 @@ int main (int argc, char* argv[])
 	}
 
 	iGLEngine->Initialize(windowWidth, windowHeight);
-	
+
 	iGLEngine->loadModel( CHESS_BOARD );
 	//iGLEngine->loadModel();
 
@@ -239,7 +238,7 @@ int main (int argc, char* argv[])
 		state.WheelDown = SDL_PollEvent(NULL) & SDL_BUTTON(SDL_BUTTON_WHEELDOWN);
 
 		drawScene();
-		
+
 		handleSelections();
 
 		SDL_Event event;

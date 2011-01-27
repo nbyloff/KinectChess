@@ -3,6 +3,7 @@
 
 #include "vector.h"
 #include <GL/GL.H>
+#include <gl/GLU.h>
 #include <cstring>
 #define DepthRatio 0.36397023426620236135104788277683f
 

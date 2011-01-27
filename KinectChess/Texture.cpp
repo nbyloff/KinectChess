@@ -3,7 +3,7 @@
 
 vector<Texture *> Texture::textures;
 
-//Texture::Texture(char *ps, int w, int h) : pixels(ps), width(w), height(h) 
+//Texture::Texture(char *ps, int w, int h) : pixels(ps), width(w), height(h)
 //Texture::Texture(char *in_filename, string in_name)
 Texture::Texture(string in_filename, string in_name)
 {
@@ -39,27 +39,27 @@ namespace {
 					 ((unsigned char)bytes[1] << 8) |
 					 (unsigned char)bytes[0]);
 	}
-	
+
 	//Converts a two-character array to a short, using little-endian form
 	short toShort(const char* bytes) {
 		return (short)(((unsigned char)bytes[1] << 8) |
 					   (unsigned char)bytes[0]);
 	}
-	
+
 	//Reads the next four bytes as an integer, using little-endian form
 	int readInt(ifstream &input) {
 		char buffer[4];
 		input.read(buffer, 4);
 		return toInt(buffer);
 	}
-	
+
 	//Reads the next two bytes as a short, using little-endian form
 	short readShort(ifstream &input) {
 		char buffer[2];
 		input.read(buffer, 2);
 		return toShort(buffer);
 	}
-	
+
 	//Just like auto_ptr, but for arrays
 	template<class T>
 	class auto_array {
@@ -70,27 +70,27 @@ namespace {
 			explicit auto_array(T* array_ = NULL) :
 				array(array_), isReleased(false) {
 			}
-			
+
 			auto_array(const auto_array<T> &aarray) {
 				array = aarray.array;
 				isReleased = aarray.isReleased;
 				aarray.isReleased = true;
 			}
-			
+
 			~auto_array() {
 				if (!isReleased && array != NULL) {
 					delete[] array;
 				}
 			}
-			
+
 			T* get() const {
 				return array;
 			}
-			
+
 			T &operator*() const {
 				return *array;
 			}
-			
+
 			void operator=(const auto_array<T> &aarray) {
 				if (!isReleased && array != NULL) {
 					delete[] array;
@@ -99,27 +99,27 @@ namespace {
 				isReleased = aarray.isReleased;
 				aarray.isReleased = true;
 			}
-			
+
 			T* operator->() const {
 				return array;
 			}
-			
+
 			T* release() {
 				isReleased = true;
 				return array;
 			}
-			
+
 			void reset(T* array_ = NULL) {
 				if (!isReleased && array != NULL) {
 					delete[] array;
 				}
 				array = array_;
 			}
-			
+
 			T* operator+(int i) {
 				return array + i;
 			}
-			
+
 			T &operator[](int i) {
 				return array[i];
 			}
@@ -129,14 +129,15 @@ namespace {
 //Texture* loadBMP(const char* filename) {
 bool Texture::loadBMP(string filename) {
 	ifstream input;
-	input.open(filename, ifstream::binary);
+	input.open(filename.c_str());
+	//input.open(filename, ifstream::binary);
 	assert(!input.fail() || !"Could not find file");
 	char buffer[2];
 	input.read(buffer, 2);
 	assert(buffer[0] == 'B' && buffer[1] == 'M' || !"Not a bitmap file");
 	input.ignore(8);
 	int dataOffset = readInt(input);
-	
+
 	//Read the header
 	int headerSize = readInt(input);
 	int width;
@@ -172,14 +173,14 @@ bool Texture::loadBMP(string filename) {
 		default:
 			assert(!"Unknown bitmap format");
 	}
-	
+
 	//Read the data
 	int bytesPerRow = ((width * 3 + 3) / 4) * 4 - (width * 3 % 4);
 	int size = bytesPerRow * height;
 	auto_array<char> pixels(new char[size]);
 	input.seekg(dataOffset, std::ios_base::beg);
 	input.read(pixels.get(), size);
-	
+
 	//Get the data into the right format
 	auto_array<char> pixels2(new char[width * height * 3]);
 	for(int y = 0; y < height; y++) {
@@ -190,7 +191,7 @@ bool Texture::loadBMP(string filename) {
 			}
 		}
 	}
-	
+
 	input.close();
 	//pixels = pixels2;
 	loadTexture(pixels2.release(), width, height);
@@ -288,7 +289,7 @@ bool Texture::createTexture(unsigned char *ps, int w, int h, int type)
 //Makes the image into a texture, and returns the id of the texture
 //bool Texture::loadTexture(Texture *image) {
 bool Texture::loadTexture(char *ps, int w, int h) {
-	
+
 	glGenTextures(1, &texID); //Make room for our texture
 	glBindTexture(GL_TEXTURE_2D, texID); //Tell OpenGL which texture to edit
 
@@ -304,7 +305,7 @@ bool Texture::loadTexture(char *ps, int w, int h) {
 				 GL_UNSIGNED_BYTE,  //GL_UNSIGNED_BYTE, because pixels are stored
 				                   //as unsigned numbers
 				 ps);               //The actual pixel data
-	
+
 	return true;
 }
 

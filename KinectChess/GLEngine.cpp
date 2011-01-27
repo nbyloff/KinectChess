@@ -1,4 +1,5 @@
 #include "GLEngine.h"
+#include <stdexcept>
 
 const int fontSize = 13;
 const int fontSpace = 7;
@@ -15,14 +16,14 @@ GLEngine::~GLEngine()
 	//TODO: Delete everything
 }
 
-GLvoid GLEngine::Uninitialize(GLvoid)
+GLvoid GLEngine::Uninitialize()
 {
 	GLEngine::getEngine()->getModel().destroy();
 	delete GLEngine::getEngine()->shader;
 	delete GLEngine::getEngine();
 }
 
-GLEngine *GLEngine::getEngine(GLvoid)
+GLEngine *GLEngine::getEngine()
 {
 	//singleton engine
 	static GLEngine *engine = new GLEngine();
@@ -73,12 +74,12 @@ GLuint GLEngine::loadTexture(const char *pszFilename)
 
 void GLEngine::loadModel(const char *pszFilename)
 {
-    // Import the OBJ file and normalize to unit length.		
+    // Import the OBJ file and normalize to unit length.
     if (!model.import(pszFilename))
     {
         throw std::runtime_error("Failed to load model.");
     }
-	
+
     // Load any associated textures.
     // Note the path where the textures are assumed to be located.
     const ModelOBJ::Material *pMaterial = 0;
@@ -223,7 +224,7 @@ bool GLEngine::extensionSupported(const char *pszExtensionName)
     return true;
 }
 
-GLvoid GLEngine::buildTextureFont(GLvoid)
+GLvoid GLEngine::buildTextureFont()
 {
 	fontBase = glGenLists(256); //16 rows * 16 columns in Font.tga
 	glBindTexture(GL_TEXTURE_2D, fontTexture->texID);
@@ -250,7 +251,7 @@ GLvoid GLEngine::buildTextureFont(GLvoid)
 		glTranslated(fontSpace, 0, 0);
 		glEndList();
 	}
-	
+
 }
 
 GLvoid GLEngine::drawText(GLint x, GLint y, const char *in_text, ...)
@@ -264,7 +265,7 @@ GLvoid GLEngine::drawText(GLint x, GLint y, const char *in_text, ...)
 
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE); 
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 
 	glBindTexture(GL_TEXTURE_2D, fontTexture->texID);
 
@@ -400,9 +401,9 @@ void GLEngine::drawModelUsingProgrammablePipeline()
 
 	glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		
+
 	glUseProgram(blinnPhongShader);
-	const ModelOBJ::Material *pMaterial = 0;
+	//const ModelOBJ::Material *pMaterial = 0;
 
 	// Stencil setup
 	glStencilOp( GL_KEEP, GL_KEEP, GL_REPLACE );
@@ -410,7 +411,7 @@ void GLEngine::drawModelUsingProgrammablePipeline()
 
 	objects = model.getObjects();
 	// Loop through objects...
-	for( int i=0 ; i < (int)objects.size(); ++i ) 
+	for( int i=0 ; i < (int)objects.size(); ++i )
 	{
 		ModelOBJ::GroupObject *object = objects[i];
 
@@ -421,12 +422,12 @@ void GLEngine::drawModelUsingProgrammablePipeline()
 			if ( selectedItem->index == object->index )
 				moveObject = true;
 		}
-		
+
 		// Draw to stencil buffer with object's index
 		glStencilFunc( GL_ALWAYS, object->index, 0xFF );
 
 		// Loop through materials used by object...
-		for( int j=0 ; j < (int)object->materials.size() ; ++j ) 
+		for( int j=0 ; j < (int)object->materials.size() ; ++j )
 		{
 			ModelOBJ::Material *pMaterial = object->materials[j];
 
@@ -459,7 +460,7 @@ void GLEngine::drawModelUsingProgrammablePipeline()
 				if ( moveObject )
 					glUniform4f(glGetUniformLocation(
 						blinnPhongShader, "Ambient"), 0.0f, 1.0f, 0.0f, 1.0f);
-				else 
+				else
 					glUniform4f(glGetUniformLocation(
 						blinnPhongShader, "Ambient"), 0.0f, 0.0f, 0.0f, 0.0f);
 			}
@@ -553,11 +554,11 @@ void GLEngine::GL2GetGLVersion(int &major, int &minor)
     if (!majorGL && !minorGL)
     {
         const char *pszVersion = reinterpret_cast<const char *>(glGetString(GL_VERSION));
-        
+
         if (pszVersion)
             sscanf(pszVersion, "%d.%d", &majorGL, &minorGL);
     }
-    
+
     major = majorGL;
     minor = minorGL;
 }

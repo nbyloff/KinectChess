@@ -40,9 +40,9 @@ public:
 	GLEngine();
 	~GLEngine();
 
-	static GLvoid Uninitialize(GLvoid);
-	static GLEngine *getEngine(GLvoid);
-	
+	static GLvoid Uninitialize();
+	static GLEngine *getEngine();
+
 	GLuint loadTexture(const char *pszFilename);
 	void loadModel(const char *pszFilename = "");
 
@@ -50,7 +50,7 @@ public:
 	ModelOBJ::GroupObject *getObject(int index);
 
 	void setMovePoint(Vector3 point);
-	
+
 	GLvoid Initialize(GLint width, GLint height);
 	GLvoid establishProjectionMatrix(GLsizei width, GLsizei height);
 
@@ -58,8 +58,8 @@ public:
 
 	void	drawModelUsingProgrammablePipeline();
 	void	drawModelUsingFixedFuncPipeline();
-	
-	GLvoid buildTextureFont(GLvoid);
+
+	GLvoid buildTextureFont();
 	GLvoid drawText(GLint x, GLint y, const char *text, ...);
 
 	GLuint getTextWidth(const char *text);
@@ -119,7 +119,7 @@ private:
 	bool				isSquareSelected;
 	Vector3				moveTo;
 
-	
+
 
 
 };

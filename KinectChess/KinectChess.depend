@@ -1,0 +1,122 @@
+# depslib dependency file v1.0
+1296018293 source:d:\src\games\kinectchess\kinectchess\control.cpp
+	"Control.h"
+
+1296018293 d:\src\games\kinectchess\kinectchess\control.h
+	"GLEngine.h"
+	<list>
+	<string>
+
+1296153412 d:\src\games\kinectchess\kinectchess\glengine.h
+	<Windows.h>
+	"resource.h"
+	"Shader.h"
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<gl/GL.h>
+	<gl/GLU.h>
+	<string>
+	"bitmap.h"
+	"ModelOBJ.h"
+
+1296018294 d:\src\games\kinectchess\kinectchess\resource.h
+
+1296018293 d:\src\games\kinectchess\kinectchess\shader.h
+	<GL/glew.h>
+	<string.h>
+	"Texture.h"
+
+1296018293 d:\src\games\kinectchess\kinectchess\texture.h
+	<Windows.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<gl/GL.h>
+	<gl/GLU.h>
+	<cstdio>
+	<string>
+	<vector>
+	<fstream>
+
+1296018293 d:\src\games\kinectchess\kinectchess\bitmap.h
+	<windows.h>
+	<tchar.h>
+
+1296099035 d:\src\games\kinectchess\kinectchess\modelobj.h
+	<cstdio>
+	<map>
+	<string>
+	<vector>
+	"Transform.h"
+
+1296100736 d:\src\games\kinectchess\kinectchess\transform.h
+	"Vector3.h"
+
+1296018293 d:\src\games\kinectchess\kinectchess\vector3.h
+	<math.h>
+
+1296151039 source:d:\src\games\kinectchess\kinectchess\glengine.cpp
+	"GLEngine.h"
+	<stdexcept>
+
+1296099201 source:d:\src\games\kinectchess\kinectchess\modelobj.cpp
+	<algorithm>
+	<cmath>
+	<cstring>
+	<limits>
+	<string>
+	"ModelOBJ.h"
+
+1296151089 source:d:\src\games\kinectchess\kinectchess\shader.cpp
+	<cstdlib>
+	"Shader.h"
+
+1296100755 source:d:\src\games\kinectchess\kinectchess\transform.cpp
+	"Transform.h"
+
+1296154246 source:d:\src\games\kinectchess\kinectchess\bitmap.cpp
+	<windows.h>
+	<olectl.h.>
+	<cmath>
+	<cstring>
+	<vector>
+	"bitmap.h"
+
+1296151288 source:d:\src\games\kinectchess\kinectchess\texture.cpp
+	"Texture.h"
+	<assert.h>
+
+1296018293 source:d:\src\games\kinectchess\kinectchess\camera.cpp
+	"camera.h"
+
+1296152379 d:\src\games\kinectchess\kinectchess\camera.h
+	"vector.h"
+	<GL/GL.H>
+	<gl/GLU.h>
+	<cstring>
+
+1296018294 d:\src\games\kinectchess\kinectchess\vector.h
+	<cmath>
+
+1296018293 source:d:\src\games\kinectchess\kinectchess\gl2.cpp
+	<cstdio>
+	"gl2.h"
+
+1296018293 d:\src\games\kinectchess\kinectchess\gl2.h
+	<windows.h>
+	<GL/GL.h>
+	<cstddef>
+
+1296153377 source:d:\src\games\kinectchess\kinectchess\main.cpp
+	<stdlib.h>
+	"SDL\SDL.h"
+	"GLEngine.h"
+	"Control.h"
+	"camera.h"
+
+1296018294 source:d:\src\games\kinectchess\kinectchess\mytime.c
+	"mytime.h"
+
+1296018294 d:\src\games\kinectchess\kinectchess\mytime.h
+	<windows.h>
+	<time.h>
+
