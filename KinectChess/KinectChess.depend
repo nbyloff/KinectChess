@@ -58,7 +58,7 @@
 	"GLEngine.h"
 	<stdexcept>
 
-1296099201 source:d:\src\games\kinectchess\kinectchess\modelobj.cpp
+1296179501 source:d:\src\games\kinectchess\kinectchess\modelobj.cpp
 	<algorithm>
 	<cmath>
 	<cstring>
@@ -106,7 +106,7 @@
 	<GL/GL.h>
 	<cstddef>
 
-1296153377 source:d:\src\games\kinectchess\kinectchess\main.cpp
+1296175201 source:d:\src\games\kinectchess\kinectchess\main.cpp
 	<stdlib.h>
 	"SDL\SDL.h"
 	"GLEngine.h"

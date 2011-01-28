@@ -105,7 +105,7 @@ ModelOBJ::GroupObject *ModelOBJ::getObject(int index)
 
 void ModelOBJ::destroy()
 {
-	/* TODO: 
+	/* TODO:
 
 	del go->center
 	del go
@@ -291,7 +291,7 @@ void ModelOBJ::addTrianglePosTexCoordNormal(GroupObject *currentObject, int inde
     vertex.normal[1] = m_normals[vn0 * 3 + 1];
     vertex.normal[2] = m_normals[vn0 * 3 + 2];
     m_indexBuffer[index * 3] = addVertex(currentObject, v0, &vertex);
-	
+
     vertex.position[0] = m_vertexCoords[v1 * 3];
     vertex.position[1] = m_vertexCoords[v1 * 3 + 1];
     vertex.position[2] = m_vertexCoords[v1 * 3 + 2];
@@ -370,18 +370,19 @@ void ModelOBJ::findDistances()
 		GroupObject *obj = objects[i];
 		int pos = obj->objectName.rfind("Object",0);
 		if ( obj->objectName != "Board" && pos == -1 ) //White or black game piece
-		{
 			findObjectPosition(obj);
-		}
 	}
 }
 
-void ModelOBJ::findObjectPosition( GroupObject *obj ) 
+void ModelOBJ::findObjectPosition( GroupObject *obj )
 {
+    if ( obj->objectName == "BlackRook2")
+        int x = 0;
+
 	for ( int i = 0; i < (int)objects.size(); i++ )
 	{
 		GroupObject *square = objects[i];
-		int pos = square->objectName.rfind("Object",0);	
+		int pos = square->objectName.rfind("Object",0);
 		if ( pos == 0 ) //found a square
 		{
 			Vector3 distance = obj->center.Distance(square->center);
@@ -390,9 +391,9 @@ void ModelOBJ::findObjectPosition( GroupObject *obj )
 				obj->distance = distance;
 				obj->square = square;
 			}
-			
+
 		}
-		
+
 	}
 }
 
@@ -602,7 +603,7 @@ void ModelOBJ::importGeometrySecondPass(FILE *pFile)
 
             fscanf(pFile, "%s", buffer);
 
-           
+
             if (sscanf(buffer, "%d/%d/%d", &v[0], &vt[0], &vn[0]) == 3) // v/vt/vn
             {
                 fscanf(pFile, "%d/%d/%d", &v[1], &vt[1], &vn[1]);
@@ -619,14 +620,6 @@ void ModelOBJ::importGeometrySecondPass(FILE *pFile)
                 vn[0] = (vn[0] < 0) ? vn[0] + numNormals - 1 : vn[0] - 1;
                 vn[1] = (vn[1] < 0) ? vn[1] + numNormals - 1 : vn[1] - 1;
                 vn[2] = (vn[2] < 0) ? vn[2] + numNormals - 1 : vn[2] - 1;
-
-				//if ( currentMaterial->startIndex == -1 )
-				//	currentMaterial->startIndex = v[0];
-
-				/*currentMaterial->triangleCount++;
-				currentMaterial->indices.push_back(v[0]);
-				currentMaterial->indices.push_back(v[1]);
-				currentMaterial->indices.push_back(v[2]);*/
 
                 addTrianglePosTexCoordNormal(currentGroup, numTriangles++, currentMaterial->id,
                     v[0], v[1], v[2], vt[0], vt[1], vt[2], vn[0], vn[1], vn[2]);
@@ -658,7 +651,7 @@ void ModelOBJ::importGeometrySecondPass(FILE *pFile)
 
 			for ( int i = 0; i < (int)m_materials.size(); i++ )
 			{
-				if ( name == m_materials[i].name ) 
+				if ( name == m_materials[i].name )
 				{
 					//NWB
 					Material *m = new Material;
@@ -669,8 +662,6 @@ void ModelOBJ::importGeometrySecondPass(FILE *pFile)
 					materialId++;
 					currentMaterial = m;
 					currentGroup->materials.push_back(currentMaterial);
-					//currentGroup->materialIds.push_back( currentMaterial->id );
-					//m_ObjectMaterialIds.push_back( currentMaterial->id );
 					m_ObjectMaterials.push_back( currentMaterial );
 					break;
 				}
@@ -678,7 +669,7 @@ void ModelOBJ::importGeometrySecondPass(FILE *pFile)
 		} else if (buffer[0] == 'g' ) { //group
 			//NWB
 			//int pos = currentGroup->objectName.rfind("Object",0);
-			if ( currentGroup->vertices.size() > 0 ) // && pos == 0 
+			if ( currentGroup->vertices.size() > 0 ) // && pos == 0
 				findObjectCenter( currentGroup );
 
 			fscanf (pFile, "%s", oName);
@@ -725,11 +716,12 @@ void ModelOBJ::importGeometrySecondPass(FILE *pFile)
             fgets(buffer, sizeof(buffer), pFile);
         }
     }
+    if ( currentGroup->vertices.size() > 0 ) //For the last object loaded
+        findObjectCenter( currentGroup );
 }
 
 void ModelOBJ::findObjectCenter( GroupObject *currentObject )
 {
-	//currentObject->center = Vector3(0, 0, 0);
 	vector<Vector3 *> vertices = currentObject->vertices;
 	Vector3 *sumVector = new Vector3;
 
@@ -896,7 +888,7 @@ bool ModelOBJ::importMaterials(const char *pszFilename)
             pMaterial->name = buffer;
             pMaterial->colorMapFilename.clear();
             pMaterial->bumpMapFilename.clear();
-			
+
 			pMaterial->id = numMaterials;
             m_materialCache[pMaterial->name] = numMaterials;
             ++numMaterials;
