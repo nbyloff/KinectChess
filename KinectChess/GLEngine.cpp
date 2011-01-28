@@ -164,10 +164,10 @@ GLvoid GLEngine::Initialize(GLint width, GLint height)
     supportsProgrammablePipeline = GL2SupportsGLVersion(2, 0);
 
     // Check for GL_EXT_texture_filter_anisotropic support.
-    if (extensionSupported("GL_EXT_texture_filter_anisotropic"))
-        glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &maxAnisotrophy);
-    else
-        maxAnisotrophy = 1.0f;
+    //if (extensionSupported("GL_EXT_texture_filter_anisotropic"))
+     //   glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &maxAnisotrophy);
+    //else
+    maxAnisotrophy = 1.0f;
 
 	glEnable(GL_TEXTURE_2D);
     glEnable(GL_DEPTH_TEST);
@@ -177,21 +177,23 @@ GLvoid GLEngine::Initialize(GLint width, GLint height)
     glEnable(GL_LIGHT0);
 	glClearStencil(0);
 
-    if (supportsProgrammablePipeline)
-    {
+    //if (supportsProgrammablePipeline)
+    //{
         std::string infoLog;
-
+        //if loading fails, load from text file instead of resource file; we're in c::b
         if (!(blinnPhongShader = shader->loadShaderProgramFromResource(
             reinterpret_cast<const char *>(SHADER_BLINN_PHONG), infoLog)))
-            throw std::runtime_error("Failed to load Blinn-Phong shader.\n" + infoLog);
+            blinnPhongShader = shader->loadShaderProgramFromFile( "D:\\src\\games\\KinectChess\\KinectChess\\Content\\Shaders\\blinn_phong.glsl", infoLog );
+            //throw std::runtime_error("Failed to load Blinn-Phong shader.\n" + infoLog);
 
         if (!(normalMappingShader = shader->loadShaderProgramFromResource(
             reinterpret_cast<const char *>(SHADER_NORMAL_MAPPING), infoLog)))
-            throw std::runtime_error("Failed to load normal mapping shader.\n" + infoLog);
+            normalMappingShader = shader->loadShaderProgramFromFile( "D:\\src\\games\\KinectChess\\KinectChess\\Content\\Shaders\\normal_mapping.glsl", infoLog );
+            //throw std::runtime_error("Failed to load normal mapping shader.\n" + infoLog);
 
 		if (!(nullTexture = Texture::createNullTexture(2, 2)))
             throw std::runtime_error("Failed to create null texture.");
-    }
+    //}
 }
 
 bool GLEngine::extensionSupported(const char *pszExtensionName)

@@ -16,8 +16,11 @@ public:
 	GLuint	compileShader(GLenum type, const GLchar *pszSource, GLint length);
 	GLuint	linkShaders(GLuint vertShader, GLuint fragShader);
 
+    GLuint	loadShaderProgramFromResource(const char *pResouceId, std::string &infoLog);
+	GLuint  loadShaderProgramFromFile(const char *fn, std::string &infoLog);
+	GLuint  loadShaderProgram(std::string buffer, std::string &infoLog);
+
 	void	readTextFileFromResource(const char *pResouceId, std::string &buffer);
-	GLuint	loadShaderProgramFromResource(const char *pResouceId, std::string &infoLog);
 
 	void	useShader(void);
 
@@ -30,9 +33,10 @@ public:
 	static void disableShaders(void);
 
 private:
-	char *readFile(const char *fn);
 
-private:	
+
+
+private:
 	GLhandleARB vertexShader;
 	GLhandleARB fragmentShader;
 

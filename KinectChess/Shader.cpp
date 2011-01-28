@@ -140,7 +140,47 @@ void Shader::readTextFileFromResource(const char *pResouceId, std::string &buffe
     }
 }
 
-GLuint Shader::loadShaderProgramFromResource(const char *pResouceId, std::string &infoLog)
+GLuint Shader::loadShaderProgramFromFile(const char *fn, std::string &infoLog)
+{
+    infoLog.clear();
+
+    GLuint program = 0;
+    std::string buffer;
+
+	FILE *fp;
+	char *content = NULL;
+
+	int count=0;
+
+	if (fn != NULL) {
+		fp = fopen(fn,"rt");
+
+		if (fp != NULL) {
+
+			fseek(fp, 0, SEEK_END);
+			count = ftell(fp);
+			rewind(fp);
+
+			if (count > 0) {
+				content = (char *)malloc(sizeof(char) * (count+1));
+				count = fread(content,sizeof(char),count,fp);
+				content[count] = '\0';
+			}
+			fclose(fp);
+		}
+	}
+	buffer = (std::string)content;
+	if ( buffer.length() == 0 )
+        return program;
+
+    program = loadShaderProgram( buffer, infoLog );
+    //if ( buffer.length() == 0 && *pResourceId != NULL )
+    //buffer = readFile( pResourceId );
+
+    return program;
+}
+
+GLuint Shader::loadShaderProgramFromResource(const char *pResourceId, std::string &infoLog)
 {
     infoLog.clear();
 
@@ -149,7 +189,27 @@ GLuint Shader::loadShaderProgramFromResource(const char *pResouceId, std::string
 
     // Read the text file containing the GLSL shader program.
     // This file contains 1 vertex shader and 1 fragment shader.
-    readTextFileFromResource(pResouceId, buffer);
+    readTextFileFromResource(pResourceId, buffer);
+
+    if ( buffer.length() == 0 )
+        return program;
+
+    program = loadShaderProgram( buffer, infoLog );
+    //if ( buffer.length() == 0 && *pResourceId != NULL )
+    //buffer = readFile( pResourceId );
+
+    return program;
+}
+
+GLuint Shader::loadShaderProgram(std::string buffer, std::string &infoLog)
+{
+    infoLog.clear();
+
+    GLuint program = 0;
+    //std::string buffer;
+
+    // Read the text file containing the GLSL shader program.
+    // This file contains 1 vertex shader and 1 fragment shader.
 
     // Compile and link the vertex and fragment shaders.
     if (buffer.length() > 0)
@@ -231,32 +291,6 @@ void Shader::disableShaders(void)
 	glUseProgramObjectARB(NULL);
 }
 
-char *Shader::readFile(const char *fn)
-{
-	FILE *fp;
-	char *content = NULL;
-
-	int count=0;
-
-	if (fn != NULL) {
-		fp = fopen(fn,"rt");
-
-		if (fp != NULL) {
-
-			fseek(fp, 0, SEEK_END);
-			count = ftell(fp);
-			rewind(fp);
-
-			if (count > 0) {
-				content = (char *)malloc(sizeof(char) * (count+1));
-				count = fread(content,sizeof(char),count,fp);
-				content[count] = '\0';
-			}
-			fclose(fp);
-		}
-	}
-	return content;
-}
 
 //Debugging shaders
 //int compiled = 0, length = 0, laux = 0;

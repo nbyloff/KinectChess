@@ -222,7 +222,6 @@ int main (int argc, char* argv[])
 	iGLEngine->Initialize(windowWidth, windowHeight);
 
 	iGLEngine->loadModel( CHESS_BOARD );
-	//iGLEngine->loadModel();
 
 	//ResetCamera();
 
