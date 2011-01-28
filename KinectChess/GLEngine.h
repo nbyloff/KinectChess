@@ -57,7 +57,6 @@ public:
 	bool	extensionSupported(const char *pszExtensionName);
 
 	void	drawModelUsingProgrammablePipeline();
-	void	drawModelUsingFixedFuncPipeline();
 
 	GLvoid buildTextureFont();
 	GLvoid drawText(GLint x, GLint y, const char *text, ...);

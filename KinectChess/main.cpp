@@ -47,7 +47,7 @@ GLvoid establishProjectionMatrix(GLsizei width, GLsizei height)
 	glLoadIdentity();
 
 	//cast to float because vars are int's
-	gluPerspective(45.0f, (GLfloat)width / (GLfloat)height, 0.1f, 1000.0f); //adjust for clipping near / far
+	gluPerspective(45.0f, (GLfloat)width / (GLfloat)height, 0.1f, 2000.0f); //adjust for clipping near / far
 }
 
 GLvoid drawScene(bool selection = false)
@@ -64,8 +64,6 @@ GLvoid drawScene(bool selection = false)
 
 	if ( iGLEngine->supportProgrammablePipeline() )
 		iGLEngine->drawModelUsingProgrammablePipeline();
-    else
-        iGLEngine->drawModelUsingFixedFuncPipeline();
 
 	if ( selection == true )
 		return;
@@ -228,8 +226,8 @@ int main (int argc, char* argv[])
 		state.LeftButtonDown = SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(1);
 		state.MiddleButtonDown = SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(2);
 		state.RightButtonDown = SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(3);
-		state.WheelUp = SDL_PollEvent(NULL) & SDL_BUTTON(SDL_BUTTON_WHEELUP);
-		state.WheelDown = SDL_PollEvent(NULL) & SDL_BUTTON(SDL_BUTTON_WHEELDOWN);
+		//state.WheelUp = SDL_PollEvent(NULL) & SDL_BUTTON(SDL_BUTTON_WHEELUP);
+		//state.WheelDown = SDL_PollEvent(NULL) & SDL_BUTTON(SDL_BUTTON_WHEELDOWN);
 
 		drawScene();
 

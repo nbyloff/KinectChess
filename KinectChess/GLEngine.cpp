@@ -20,7 +20,8 @@ GLvoid GLEngine::Uninitialize()
 {
 	GLEngine::getEngine()->getModel().destroy();
 	delete GLEngine::getEngine()->shader;
-	delete GLEngine::getEngine();
+	delete GLEngine::getEngine(); //FIXME: Crashes here
+
 }
 
 GLEngine *GLEngine::getEngine()
@@ -283,77 +284,7 @@ GLvoid GLEngine::drawText(GLint x, GLint y, const char *in_text, ...)
 	glPopMatrix();
 }
 
-void GLEngine::drawModelUsingFixedFuncPipeline()
-{
-    const ModelOBJ::Mesh *pMesh = 0;
-    const ModelOBJ::Material *pMaterial = 0;
-    const ModelOBJ::Vertex *pVertices = 0;
-    ModelTextures::const_iterator iter;
 
-    for (int i = 0; i < model.getNumberOfMeshes(); ++i)
-    {
-        pMesh = &model.getMesh(i);
-        pMaterial = pMesh->pMaterial;
-        pVertices = model.getVertexBuffer();
-
-        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, pMaterial->ambient);
-        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, pMaterial->diffuse);
-        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, pMaterial->specular);
-        glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, pMaterial->shininess * 128.0f);
-
-        if (enableTextures)
-        {
-            iter = modelTextures.find(pMaterial->colorMapFilename);
-
-            if (iter == modelTextures.end())
-            {
-                glDisable(GL_TEXTURE_2D);
-            }
-            else
-            {
-                glEnable(GL_TEXTURE_2D);
-                glBindTexture(GL_TEXTURE_2D, iter->second);
-            }
-        }
-        else
-        {
-            glDisable(GL_TEXTURE_2D);
-        }
-
-        if (model.hasPositions())
-        {
-            glEnableClientState(GL_VERTEX_ARRAY);
-            glVertexPointer(3, GL_FLOAT, model.getVertexSize(),
-                model.getVertexBuffer()->position);
-        }
-
-        if (model.hasTextureCoords())
-        {
-            glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-            glTexCoordPointer(2, GL_FLOAT, model.getVertexSize(),
-                model.getVertexBuffer()->texCoord);
-        }
-
-        if (model.hasNormals())
-        {
-            glEnableClientState(GL_NORMAL_ARRAY);
-            glNormalPointer(GL_FLOAT, model.getVertexSize(),
-                model.getVertexBuffer()->normal);
-        }
-
-        glDrawElements(GL_TRIANGLES, pMesh->triangleCount * 3, GL_UNSIGNED_INT,
-            model.getIndexBuffer() + pMesh->startIndex);
-
-        if (model.hasNormals())
-            glDisableClientState(GL_NORMAL_ARRAY);
-
-        if (model.hasTextureCoords())
-            glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-
-        if (model.hasPositions())
-            glDisableClientState(GL_VERTEX_ARRAY);
-    }
-}
 ModelOBJ::GroupObject *GLEngine::getSelectedItem()
 {
 	return selectedItem;

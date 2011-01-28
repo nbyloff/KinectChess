@@ -33,7 +33,6 @@ public:
         std::string colorMapFilename;
         std::string bumpMapFilename;
 
-		//std::vector<int>	indices;
 		int	id;
 		int startIndex;
 		int triangleCount;
@@ -54,13 +53,6 @@ public:
 		Transform				position;
 	};
 
-	struct Mesh
-    {
-        int startIndex;
-        int triangleCount;
-        const Material *pMaterial;
-    };
-
     ModelOBJ();
     ~ModelOBJ();
 
@@ -71,21 +63,14 @@ public:
     bool import(const char *pszFilename, bool rebuildNormals = false);
     void reverseWinding();
 
-    // Getter methods.
-
+    // Getter methods
     void getCenter(float &x, float &y, float &z) const;
-    float getWidth() const;
-    float getHeight() const;
-    float getLength() const;
-    float getRadius() const;
 
     const int *getIndexBuffer() const;
     int getIndexSize() const;
-	
+
     //const Material &getMaterial(int i) const; NWB
 	const Material &getMaterial(int i) const;
-
-    const Mesh &getMesh(int i) const;
 
     int getNumberOfIndices() const;
     int getNumberOfMaterials() const;
@@ -103,7 +88,7 @@ public:
     bool hasPositions() const;
     bool hasTangents() const;
     bool hasTextureCoords() const;
-	
+
 
 
 private:
@@ -113,8 +98,6 @@ private:
         int vt0, int vt1, int vt2,
         int vn0, int vn1, int vn2);
     int addVertex(GroupObject *currentGroup, int hash, Vertex *pVertex);
-    void bounds(float center[3], float &width, float &height,
-        float &length, float &radius) const;
 	void findObjectPosition( GroupObject *obj );
 	void findDistances();
 	void buildObjects();
@@ -132,19 +115,11 @@ private:
     int m_numberOfNormals;
     int m_numberOfTriangles;
     int m_numberOfMaterials;
-    int m_numberOfMeshes;
 	int m_numberOfObjects;
 	int m_numberOfObjectMaterials;
 
-    float m_center[3];
-    float m_width;
-    float m_height;
-    float m_length;
-    float m_radius;
-
     std::string m_directoryPath;
 
-    std::vector<Mesh> m_meshes;
     std::vector<Material> m_materials;
     std::vector<Vertex> m_vertexBuffer;
 	std::vector<Vertex *> m_vertexBufferPointers;
@@ -167,41 +142,20 @@ private:
 
 //-----------------------------------------------------------------------------
 
-inline void ModelOBJ::getCenter(float &x, float &y, float &z) const
-{ x = m_center[0]; y = m_center[1]; z = m_center[2]; }
-
-inline float ModelOBJ::getWidth() const
-{ return m_width; }
-
-inline float ModelOBJ::getHeight() const
-{ return m_height; }
-
-inline float ModelOBJ::getLength() const
-{ return m_length; }
-
-inline float ModelOBJ::getRadius() const
-{ return m_radius; }
-
 inline const int *ModelOBJ::getIndexBuffer() const
 { return &m_indexBuffer[0]; }
 
 inline int ModelOBJ::getIndexSize() const
 { return static_cast<int>(sizeof(int)); }
 
-inline const ModelOBJ::Material &ModelOBJ::getMaterial(int i) const 
+inline const ModelOBJ::Material &ModelOBJ::getMaterial(int i) const
 { return m_materials[i]; }
-
-inline const ModelOBJ::Mesh &ModelOBJ::getMesh(int i) const
-{ return m_meshes[i]; }
 
 inline int ModelOBJ::getNumberOfIndices() const
 { return m_numberOfTriangles * 3; }
 
 inline int ModelOBJ::getNumberOfMaterials() const
 { return m_numberOfMaterials; }
-
-inline int ModelOBJ::getNumberOfMeshes() const
-{ return m_numberOfMeshes; }
 
 inline int ModelOBJ::getNumberOfTriangles() const
 { return m_numberOfTriangles; }

@@ -130,7 +130,7 @@
 	<list>
 	<string>
 
-1296155383 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\glengine.h
+1296245461 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\glengine.h
 	<Windows.h>
 	"resource.h"
 	"Shader.h"
@@ -164,7 +164,7 @@
 	<windows.h>
 	<tchar.h>
 
-1296148633 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\modelobj.h
+1296248554 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\modelobj.h
 	<cstdio>
 	<map>
 	<string>
@@ -177,11 +177,11 @@
 1296148633 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\vector3.h
 	<math.h>
 
-1296241158 source:c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\glengine.cpp
+1296248829 source:c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\glengine.cpp
 	"GLEngine.h"
 	<stdexcept>
 
-1296228088 source:c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\modelobj.cpp
+1296248614 source:c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\modelobj.cpp
 	<algorithm>
 	<cmath>
 	<cstring>
@@ -200,7 +200,7 @@
 1296228088 source:c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\transform.cpp
 	"Transform.h"
 
-1296155383 source:c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\bitmap.cpp
+1296244778 source:c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\bitmap.cpp
 	<windows.h>
 	<olectl.h.>
 	<cmath>
@@ -220,7 +220,7 @@
 1296148633 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\vector.h
 	<cmath>
 
-1296243053 source:c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\main.cpp
+1296248056 source:c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\main.cpp
 	<stdlib.h>
 	"SDL\SDL.h"
 	"GLEngine.h"

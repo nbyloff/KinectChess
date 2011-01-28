@@ -5,13 +5,6 @@
 #include <string>
 #include "ModelOBJ.h"
 
-namespace
-{
-    bool MeshCompFunc(const ModelOBJ::Mesh &lhs, const ModelOBJ::Mesh &rhs)
-    {
-        return lhs.pMaterial->alpha > rhs.pMaterial->alpha;
-    }
-}
 
 ModelOBJ::ModelOBJ()
 {
@@ -25,68 +18,11 @@ ModelOBJ::ModelOBJ()
     m_numberOfNormals = 0;
     m_numberOfTriangles = 0;
     m_numberOfMaterials = 0;
-    m_numberOfMeshes = 0;
-
-    m_center[0] = m_center[1] = m_center[2] = 0.0f;
-    m_width = m_height = m_length = m_radius = 0.0f;
 }
 
 ModelOBJ::~ModelOBJ()
 {
     destroy();
-}
-
-void ModelOBJ::bounds(float center[3], float &width, float &height,
-                      float &length, float &radius) const
-{
-    float xMax = std::numeric_limits<float>::min();
-    float yMax = std::numeric_limits<float>::min();
-    float zMax = std::numeric_limits<float>::min();
-
-    float xMin = std::numeric_limits<float>::max();
-    float yMin = std::numeric_limits<float>::max();
-    float zMin = std::numeric_limits<float>::max();
-
-    float x = 0.0f;
-    float y = 0.0f;
-    float z = 0.0f;
-
-    int numVerts = static_cast<int>(m_vertexBuffer.size());
-
-    for (int i = 0; i < numVerts; ++i)
-    {
-        x = m_vertexBuffer[i].position[0];
-        y = m_vertexBuffer[i].position[1];
-        z = m_vertexBuffer[i].position[2];
-
-        if (x < xMin)
-            xMin = x;
-
-        if (x > xMax)
-            xMax = x;
-
-        if (y < yMin)
-            yMin = y;
-
-        if (y > yMax)
-            yMax = y;
-
-        if (z < zMin)
-            zMin = z;
-
-        if (z > zMax)
-            zMax = z;
-    }
-
-    center[0] = (xMin + xMax) / 2.0f;
-    center[1] = (yMin + yMax) / 2.0f;
-    center[2] = (zMin + zMax) / 2.0f;
-
-    width = xMax - xMin;
-    height = yMax - yMin;
-    length = zMax - zMin;
-
-    radius = std::max(std::max(width, height), length);
 }
 
 vector<ModelOBJ::GroupObject *> ModelOBJ::getObjects(void)
@@ -106,13 +42,20 @@ ModelOBJ::GroupObject *ModelOBJ::getObject(int index)
 void ModelOBJ::destroy()
 {
 	/* TODO:
-
 	del go->center
-	del go
-	del go-vertices
-	del go->m
-	delete unsused methods
-	del unused vars */
+	del unused vars
+	*/
+
+	for ( int i = 0; i < (int)objects.size(); i++ )
+	{
+	    for ( int m = 0; m < (int)objects[i]->materials.size(); m++ )
+	        delete objects[i]->materials[m];
+
+        for ( int v = 0; v < (int)objects[i]->vertices.size(); v++ )
+	        delete objects[i]->vertices[v];
+
+        delete objects[i];
+	}
 
     m_hasPositions = false;
     m_hasTextureCoords = false;
@@ -124,14 +67,9 @@ void ModelOBJ::destroy()
     m_numberOfNormals = 0;
     m_numberOfTriangles = 0;
     m_numberOfMaterials = 0;
-    m_numberOfMeshes = 0;
-
-    m_center[0] = m_center[1] = m_center[2] = 0.0f;
-    m_width = m_height = m_length = m_radius = 0.0f;
 
     m_directoryPath.clear();
 
-    m_meshes.clear();
     m_materials.clear();
     m_vertexBuffer.clear();
     m_indexBuffer.clear();
@@ -143,6 +81,8 @@ void ModelOBJ::destroy()
 
     m_materialCache.clear();
     m_vertexCache.clear();
+
+    objects.clear();
 
 	/*for ( int m = 0; m < (int)materials.size(); m++ )
 	{
@@ -234,7 +174,6 @@ bool ModelOBJ::import(const char *pszFilename, bool rebuildNormals)
     // Perform post import tasks.
 	buildObjects();
 	findDistances();
-    bounds(m_center, m_width, m_height, m_length, m_radius);
 
     return true;
 }
@@ -376,9 +315,6 @@ void ModelOBJ::findDistances()
 
 void ModelOBJ::findObjectPosition( GroupObject *obj )
 {
-    if ( obj->objectName == "BlackRook2")
-        int x = 0;
-
 	for ( int i = 0; i < (int)objects.size(); i++ )
 	{
 		GroupObject *square = objects[i];
@@ -653,7 +589,6 @@ void ModelOBJ::importGeometrySecondPass(FILE *pFile)
 			{
 				if ( name == m_materials[i].name )
 				{
-					//NWB
 					Material *m = new Material;
 					*m = m_materials[i];
 					m->id = materialId;
@@ -667,8 +602,6 @@ void ModelOBJ::importGeometrySecondPass(FILE *pFile)
 				}
 			}
 		} else if (buffer[0] == 'g' ) { //group
-			//NWB
-			//int pos = currentGroup->objectName.rfind("Object",0);
 			if ( currentGroup->vertices.size() > 0 ) // && pos == 0
 				findObjectCenter( currentGroup );
 
@@ -734,6 +667,7 @@ void ModelOBJ::findObjectCenter( GroupObject *currentObject )
 	}
 	currentObject->center += (*sumVector);
 	currentObject->center /= vertices.size();
+	delete sumVector;
 }
 
 bool ModelOBJ::importMaterials(const char *pszFilename)
