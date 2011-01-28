@@ -59,17 +59,6 @@ GLvoid drawScene(bool selection = false)
     else
         iGLEngine->drawModelUsingFixedFuncPipeline();
 
-	/*if ( selectedItem )
-	{
-		ModelOBJ::GroupObject *obj = selectedItem;
-		glDisable(GL_LIGHTING); //don't want light in the calcluations
-		glColor4f(0.0f, 1.0f, 0.0f, 0.2f);
-		moving = true;
-	}*/
-
-	//glEnable(GL_LIGHTING);
-	//glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-
 	if ( selection == true )
 		return;
 
@@ -221,8 +210,7 @@ int main (int argc, char* argv[])
 
 	iGLEngine->Initialize(windowWidth, windowHeight);
 
-	iGLEngine->loadModel( CHESS_BOARD );
-
+    iGLEngine->loadModel( CHESS_BOARD);
 	//ResetCamera();
 
 	int done = 0;
