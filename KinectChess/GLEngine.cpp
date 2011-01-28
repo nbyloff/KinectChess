@@ -182,12 +182,12 @@ GLvoid GLEngine::Initialize(GLint width, GLint height)
         //if loading fails, load from text file instead of resource file; we're in c::b
         if (!(blinnPhongShader = shader->loadShaderProgramFromResource(
             reinterpret_cast<const char *>(SHADER_BLINN_PHONG), infoLog)))
-            blinnPhongShader = shader->loadShaderProgramFromFile( "C:\\Users\\nbyloff\\Documents\\projects\\github\\KinectChess\\KinectChess\\Content\\Shaders\\blinn_phong.glsl", infoLog );
+            blinnPhongShader = shader->loadShaderProgramFromFile( "../KinectChess/Content/Shaders/blinn_phong.glsl", infoLog );
             //throw std::runtime_error("Failed to load Blinn-Phong shader.\n" + infoLog);
 
         if (!(normalMappingShader = shader->loadShaderProgramFromResource(
             reinterpret_cast<const char *>(SHADER_NORMAL_MAPPING), infoLog)))
-            normalMappingShader = shader->loadShaderProgramFromFile( "C:\\Users\\nbyloff\\Documents\\projects\\github\\KinectChess\\KinectChess\\Content\\Shaders\\normal_mapping.glsl", infoLog );
+            normalMappingShader = shader->loadShaderProgramFromFile( "../KinectChess/Content/Shaders/normal_mapping.glsl", infoLog );
             //throw std::runtime_error("Failed to load normal mapping shader.\n" + infoLog);
 
 		if (!(nullTexture = Texture::createNullTexture(2, 2)))

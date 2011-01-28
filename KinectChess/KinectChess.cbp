@@ -32,6 +32,8 @@
 			<Add option="-Wall" />
 			<Add directory="lib\glew\include" />
 			<Add directory="lib\sdl\include" />
+			<Add directory="lib\openni\Include" />
+			<Add directory="lib\nite\Include" />
 		</Compiler>
 		<Linker>
 			<Add library="..\..\..\..\..\..\..\Program Files (x86)\CodeBlocks\MinGW\lib\libmingw32.a" />

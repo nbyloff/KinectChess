@@ -4,6 +4,17 @@
 #include "Control.h"
 #include "camera.h"
 
+// Headers for OpenNI
+/*#include <XnOpenNI.h>
+#include <XnCppWrapper.h>
+#include <XnHash.h>
+#include <XnLog.h>
+
+// Header for NITE
+#include "XnVNite.h"*/
+// local header
+//#include "PointDrawer.h"
+
 #define GLUT_KEY_ESCAPE		27
 
 #define CHESS_BOARD			"../KinectChess/Content/Models/chess-finish.obj"
@@ -25,9 +36,6 @@ int     MouseX = 0,
         RelY = 0;
 
 Camera cam;
-//ModelOBJ::GroupObject *selectedItem = NULL;
-bool moving = false; //we have piece selected, waiting for a location to be chosen
-
 
 GLvoid establishProjectionMatrix(GLsizei width, GLsizei height)
 {
@@ -216,7 +224,6 @@ int main (int argc, char* argv[])
 	int done = 0;
 	while ( !done )
 	{
-		//VTM 25: 21 min
 		SDL_GetMouseState(&state.x, &state.y);
 		state.LeftButtonDown = SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(1);
 		state.MiddleButtonDown = SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(2);

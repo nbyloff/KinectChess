@@ -177,7 +177,7 @@
 1296148633 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\vector3.h
 	<math.h>
 
-1296229896 source:c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\glengine.cpp
+1296241158 source:c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\glengine.cpp
 	"GLEngine.h"
 	<stdexcept>
 
@@ -220,12 +220,16 @@
 1296148633 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\vector.h
 	<cmath>
 
-1296228088 source:c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\main.cpp
+1296243053 source:c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\main.cpp
 	<stdlib.h>
 	"SDL\SDL.h"
 	"GLEngine.h"
 	"Control.h"
 	"camera.h"
+	<XnCppWrapper.h>
+	<XnHash.h>
+	<XnLog.h>
+	"XnVNite.h"
 
 1296148633 source:c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\mytime.c
 	"mytime.h"
@@ -845,4 +849,425 @@
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xncppwrapper.h
+	<XnOpenNI.h>
+	<XnCodecIDs.h>
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xnopenni.h
+	"XnTypes.h"
+	"XnContext.h"
+	"XnLicensing.h"
+	"XnUtils.h"
+	"XnPrdNodeInfo.h"
+	"XnQueries.h"
+	"XnPrdNode.h"
+	"XnEnumerationErrors.h"
+	"XnVersion.h"
+	"XnStatusCodes.h"
+	"XnStatus.h"
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xntypes.h
+	<XnStatus.h>
+	<XnOS.h>
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xnstatus.h
+	"XnPlatform.h"
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xnplatform.h
+	"Win32/XnPlatformWin32.h"
+	"Linux-x86/XnPlatformLinux-x86.h"
+	"Linux-Arm/XnPlatformLinux-Arm.h"
+	"MacOSX/XnPlatformMacOSX.h"
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\win32\xnplatformwin32.h
+	<windows.h>
+	<stdlib.h>
+	<stdio.h>
+	<malloc.h>
+	<io.h>
+	<time.h>
+	<assert.h>
+	<float.h>
+	<crtdbg.h>
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\linux-x86\xnplatformlinux-x86.h
+	<unistd.h>
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<assert.h>
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\linux-arm\xnplatformlinux-arm.h
+	"../Linux-x86/XnPlatformLinux-x86.h"
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\macosx\xnplatformmacosx.h
+	"../Linux-x86/XnPlatformLinux-x86.h"
+	<sys/time.h>
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xnos.h
+	"XnPlatform.h"
+	"XnMacros.h"
+	"XnStatusCodes.h"
+	"Win32/XnOSWin32.h"
+	"Linux-x86/XnOSLinux-x86.h"
+	<new>
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xnmacros.h
+	"XnStatusCodes.h"
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xnstatuscodes.h
+	"XnStatus.h"
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\win32\xnoswin32.h
+	<windows.h>
+	<time.h>
+	<stdlib.h>
+	<stdio.h>
+	<malloc.h>
+	<io.h>
+	<assert.h>
+	<float.h>
+	<crtdbg.h>
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\linux-x86\xnoslinux-x86.h
+	<sys/types.h>
+	<stdarg.h>
+	<time.h>
+	<pthread.h>
+	<sys/stat.h>
+	<fcntl.h>
+
+1294693640 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xncontext.h
+	<XnTypes.h>
+	<XnQueries.h>
+	<XnPrdNodeInfoList.h>
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xnqueries.h
+	"XnTypes.h"
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xnprdnodeinfolist.h
+	<XnTypes.h>
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xnlicensing.h
+	<XnTypes.h>
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xnutils.h
+	<XnTypes.h>
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xnprdnodeinfo.h
+	<XnTypes.h>
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xnprdnode.h
+	<XnTypes.h>
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xnenumerationerrors.h
+	<XnTypes.h>
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xnversion.h
+	"XnPlatform.h"
+
+1294693640 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xncodecids.h
+	"XnTypes.h"
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xnhash.h
+	"XnList.h"
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xnlist.h
+	<XnDataTypes.h>
+	<IXnNodeAllocator.h>
+	<XnNodeAllocator.h>
+	<XnNode.h>
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xndatatypes.h
+	"XnOS.h"
+
+1294693640 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\ixnnodeallocator.h
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xnnodeallocator.h
+	<IXnNodeAllocator.h>
+	<XnNode.h>
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xnnode.h
+	<XnDataTypes.h>
+	<XnBaseNode.h>
+
+1294693640 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xnbasenode.h
+	<XnDataTypes.h>
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xnlog.h
+	"XnOS.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvnite.h
+	"XnVNiteFramework.h"
+	"XnVNiteControls.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvniteframework.h
+	"XnVSessionManager.h"
+	"XnVFlowRouter.h"
+	"XnVBroadcaster.h"
+	"XnVPointArea.h"
+	"XnVMessageMux.h"
+	"XnVPointDenoiser.h"
+	"XnVDepthGenerator.h"
+	"XnVImageGenerator.h"
+	"XnVDeviceGenerator.h"
+	"XnVActivationMessage.h"
+	"XnVDepthMessage.h"
+	"XnVDeviceMessage.h"
+	"XnVImageMessage.h"
+	"XnVSessionMessage.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvsessionmanager.h
+	"XnVDeviceControl.h"
+	"XnVMessageGenerator.h"
+	"XnVMultipleHands.h"
+	"XnVGesture.h"
+	"XnVPointTracker.h"
+	"XnVPointMessage.h"
+	"XnVSessionGenerator.h"
+	"XnV3DVector.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvdevicecontrol.h
+	<XnCppWrapper.h>
+	"XnVMessageListener.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvmessagelistener.h
+	<XnThreadSafeQueue.h>
+	"XnVNiteEvents.h"
+	"XnVMessage.h"
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xnthreadsafequeue.h
+	<XnQueue.h>
+	<XnOS.h>
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xnqueue.h
+	"XnList.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvniteevents.h
+	<XnOpenNI.h>
+	<XnEvent.h>
+	<XnHash.h>
+	"XnVNiteDefs.h"
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xnevent.h
+	"XnCallback.h"
+	"XnList.h"
+	"XnTypes.h"
+	"XnOSCpp.h"
+
+1294693640 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xncallback.h
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xnoscpp.h
+	<XnOS.h>
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvnitedefs.h
+	<XnOpenNI.h>
+	<XnVDirection.h>
+	<XnVNiteStatus.h>
+	"XnVNiteVersion.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvdirection.h
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvnitestatus.h
+	<XnCommon.h>
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xncommon.h
+	<XnStatus.h>
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvniteversion.h
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvmessage.h
+	"XnVNiteDefs.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvmessagegenerator.h
+	<XnStringsHash.h>
+	"XnVMessageListener.h"
+	"XnVMessage.h"
+	"XnVHandle.h"
+
+1294693642 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\openni\include\xnstringshash.h
+	"XnHash.h"
+	<XnOS.h>
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvhandle.h
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvmultiplehands.h
+	"XnVHandPointContext.h"
+	"XnVNiteEvents.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvhandpointcontext.h
+	"XnVNiteDefs.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvgesture.h
+	<XnOpenNI.h>
+	"XnVDeviceControl.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvpointtracker.h
+	"XnVDeviceFilter.h"
+	"XnVMultipleHands.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvdevicefilter.h
+	"XnVMessageGenerator.h"
+	"XnVDeviceControl.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvpointmessage.h
+	"XnVMessage.h"
+	"XnVMultipleHands.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvsessiongenerator.h
+	"XnVMessageGenerator.h"
+	"XnVSessionListener.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvsessionlistener.h
+	"XnVNiteDefs.h"
+	"XnVNiteEvents.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnv3dvector.h
+	<math.h>
+	"XnVNiteDefs.h"
+	"XnVMathCommon.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvmathcommon.h
+	<math.h>
+	<XnOS.h>
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvflowrouter.h
+	<XnStringsHash.h>
+	"XnVMessageListener.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvbroadcaster.h
+	"XnVFilter.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvfilter.h
+	"XnVMessageGenerator.h"
+	"XnVMessageListener.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvpointarea.h
+	"XnVPointFilter.h"
+	"XnVSessionGenerator.h"
+	"XnVPointTracker.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvpointfilter.h
+	"XnVMessageGenerator.h"
+	"XnVPointControl.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvpointcontrol.h
+	"XnVMessageListener.h"
+	"XnVMultipleHands.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvmessagemux.h
+	<XnStringsHash.h>
+	"XnVFilter.h"
+	"XnVComplexMessage.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvcomplexmessage.h
+	"XnVMessage.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvpointdenoiser.h
+	"XnVPointFilter.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvdepthgenerator.h
+	<XnCppWrapper.h>
+	"XnVDeviceFilter.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvimagegenerator.h
+	"XnVDeviceFilter.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvdevicegenerator.h
+	<XnCppWrapper.h>
+	"XnVMessageGenerator.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvactivationmessage.h
+	<XnOpenNI.h>
+	"XnVCCMessage.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvccmessage.h
+	"XnVMessage.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvdepthmessage.h
+	<XnOpenNI.h>
+	<XnCppWrapper.h>
+	"XnVMessage.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvdevicemessage.h
+	<XnCppWrapper.h>
+	"XnVMessage.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvimagemessage.h
+	<XnOpenNI.h>
+	<XnCppWrapper.h>
+	"XnVMessage.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvsessionmessage.h
+	"XnVCCMessage.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvnitecontrols.h
+	"XnVCircleDetector.h"
+	"XnVPushDetector.h"
+	"XnVSteadyDetector.h"
+	"XnVSwipeDetector.h"
+	"XnVWaveDetector.h"
+	"XnVSelectableSlider1D.h"
+	"XnVSelectableSlider2D.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvcircledetector.h
+	"XnVPointControl.h"
+	"XnVNiteDefs.h"
+	"XnVCircle.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvcircle.h
+	<XnOpenNI.h>
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvpushdetector.h
+	"XnVNiteDefs.h"
+	"XnVPointControl.h"
+	"XnV3DVector.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvsteadydetector.h
+	"XnVNiteDefs.h"
+	"XnVPointControl.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvswipedetector.h
+	"XnVNiteDefs.h"
+	"XnVPointControl.h"
+	"XnVDirection.h"
+	"XnVSteadyDetector.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvwavedetector.h
+	"XnVNiteDefs.h"
+	"XnVPointControl.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvselectableslider1d.h
+	"XnVPointControl.h"
+	"XnVMultiItemHysteresis1D.h"
+	"XnVSlider1D.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvmultiitemhysteresis1d.h
+	"XnVNiteDefs.h"
+	"XnVNiteEvents.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvslider1d.h
+	"XnVNiteDefs.h"
+	"XnVDirection.h"
+	"XnVNiteEvents.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvselectableslider2d.h
+	<XnOpenNI.h>
+	"XnVNiteDefs.h"
+	"XnVPointControl.h"
+	"XnVDirection.h"
+	"XnVSlider2D.h"
+	"XnVMultiItemHysteresis2D.h"
+	"XnVSlider1D.h"
+	"XnVMultiItemHysteresis1D.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvslider2d.h
+	"XnVNiteDefs.h"
+	"XnVNiteEvents.h"
+	"XnVDirection.h"
+
+1294269154 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\nite\include\xnvmultiitemhysteresis2d.h
+	"XnVNiteDefs.h"
+	"XnVNiteEvents.h"
 
