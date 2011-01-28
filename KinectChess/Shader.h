@@ -33,10 +33,6 @@ public:
 	static void disableShaders(void);
 
 private:
-
-
-
-private:
 	GLhandleARB vertexShader;
 	GLhandleARB fragmentShader;
 

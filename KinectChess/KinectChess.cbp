@@ -30,18 +30,17 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add directory="lib" />
-			<Add directory="include" />
-			<Add directory="lib\glew\lib" />
+			<Add directory="lib\glew\include" />
+			<Add directory="lib\sdl\include" />
 		</Compiler>
 		<Linker>
-			<Add library="mingw32" />
+			<Add library="..\..\..\..\..\..\..\Program Files (x86)\CodeBlocks\MinGW\lib\libmingw32.a" />
 			<Add library="gdi32" />
+			<Add library="lib\libglew32.a" />
 			<Add library="opengl32" />
 			<Add library="glu32" />
-			<Add library="glew32" />
-			<Add library="SDLmain" />
-			<Add library="SDL" />
+			<Add library="lib\libSDLmain.a" />
+			<Add library="lib\libSDL.dll.a" />
 		</Linker>
 		<Unit filename="Control.cpp" />
 		<Unit filename="Control.h" />

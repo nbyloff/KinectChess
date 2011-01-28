@@ -120,6 +120,122 @@
 	<windows.h>
 	<time.h>
 
+1296018294 D
+
+1296148633 source:c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\control.cpp
+	"Control.h"
+
+1296148633 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\control.h
+	"GLEngine.h"
+	<list>
+	<string>
+
+1296155383 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\glengine.h
+	<Windows.h>
+	"resource.h"
+	"Shader.h"
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<gl/GL.h>
+	<gl/GLU.h>
+	<string>
+	"bitmap.h"
+	"ModelOBJ.h"
+
+1296148633 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\resource.h
+
+1296228171 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\shader.h
+	<GL/glew.h>
+	<string.h>
+	"Texture.h"
+
+1296148633 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\texture.h
+	<Windows.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<gl/GL.h>
+	<gl/GLU.h>
+	<cstdio>
+	<string>
+	<vector>
+	<fstream>
+
+1296148633 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\bitmap.h
+	<windows.h>
+	<tchar.h>
+
+1296148633 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\modelobj.h
+	<cstdio>
+	<map>
+	<string>
+	<vector>
+	"Transform.h"
+
+1296148633 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\transform.h
+	"Vector3.h"
+
+1296148633 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\vector3.h
+	<math.h>
+
+1296229896 source:c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\glengine.cpp
+	"GLEngine.h"
+	<stdexcept>
+
+1296228088 source:c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\modelobj.cpp
+	<algorithm>
+	<cmath>
+	<cstring>
+	<limits>
+	<string>
+	"ModelOBJ.h"
+
+1296228228 source:c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\shader.cpp
+	<cstdlib>
+	"Shader.h"
+
+1296155383 source:c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\texture.cpp
+	"Texture.h"
+	<assert.h>
+
+1296228088 source:c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\transform.cpp
+	"Transform.h"
+
+1296155383 source:c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\bitmap.cpp
+	<windows.h>
+	<olectl.h.>
+	<cmath>
+	<cstring>
+	<vector>
+	"bitmap.h"
+
+1296148633 source:c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\camera.cpp
+	"camera.h"
+
+1296155383 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\camera.h
+	"vector.h"
+	<GL/GL.H>
+	<gl/GLU.h>
+	<cstring>
+
+1296148633 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\vector.h
+	<cmath>
+
+1296228088 source:c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\main.cpp
+	<stdlib.h>
+	"SDL\SDL.h"
+	"GLEngine.h"
+	"Control.h"
+	"camera.h"
+
+1296148633 source:c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\mytime.c
+	"mytime.h"
+
+1296148633 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\mytime.h
+	<windows.h>
+	<time.h>
+
+1296148633 >
+
 1272406596 d:\src\games\kinectchess\kinectchess\include\gl\glew.h
 	<stddef.h>
 	<inttypes.h>
@@ -310,6 +426,422 @@
 	"close_code.h"
 
 1255796850 d:\src\games\kinectchess\kinectchess\include\sdl\sdl_version.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255796850 21b85f43540c7e0f8c7129d6e48b8820053ed
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\include\gl\glew.h
+	<stddef.h>
+	<inttypes.h>
+	<stdint.h>
+	<inttypes.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\include\gl\glu.h
+	<stddef.h>
+	<GL/gl.h>
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\include\gl\gl.h
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\include\sdl\sdl.h
+	"SDL_main.h"
+	"SDL_stdinc.h"
+	"SDL_audio.h"
+	"SDL_cdrom.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_loadso.h"
+	"SDL_mutex.h"
+	"SDL_rwops.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_video.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\include\sdl\sdl_main.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\include\sdl\sdl_stdinc.h
+	"SDL_config.h"
+	<sys/types.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+	<stddef.h>
+	<stdarg.h>
+	<memory.h>
+	<string.h>
+	<strings.h>
+	<inttypes.h>
+	<stdint.h>
+	<ctype.h>
+	<iconv.h>
+	"begin_code.h"
+	<alloca.h>
+	<malloc.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\include\sdl\sdl_config.h
+	"SDL_platform.h"
+	<stdarg.h>
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\include\sdl\sdl_platform.h
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\include\sdl\begin_code.h
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\include\sdl\close_code.h
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\include\sdl\sdl_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\include\sdl\sdl_error.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\include\sdl\sdl_endian.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\include\sdl\sdl_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\include\sdl\sdl_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	<process.h>
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\include\sdl\sdl_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\include\sdl\sdl_cdrom.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\include\sdl\sdl_cpuinfo.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\include\sdl\sdl_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_active.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_quit.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\include\sdl\sdl_active.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\include\sdl\sdl_keyboard.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_keysym.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\include\sdl\sdl_keysym.h
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\include\sdl\sdl_mouse.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\include\sdl\sdl_video.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\include\sdl\sdl_joystick.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\include\sdl\sdl_quit.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\include\sdl\sdl_loadso.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\include\sdl\sdl_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\include\sdl\sdl_version.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296148633 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\glew\include\gl\glew.h
+	<stddef.h>
+	<inttypes.h>
+	<stdint.h>
+	<inttypes.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl.h
+	"SDL_main.h"
+	"SDL_stdinc.h"
+	"SDL_audio.h"
+	"SDL_cdrom.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_loadso.h"
+	"SDL_mutex.h"
+	"SDL_rwops.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_video.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl_main.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl_stdinc.h
+	"SDL_config.h"
+	<sys/types.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+	<stddef.h>
+	<stdarg.h>
+	<memory.h>
+	<string.h>
+	<strings.h>
+	<inttypes.h>
+	<stdint.h>
+	<ctype.h>
+	<iconv.h>
+	"begin_code.h"
+	<alloca.h>
+	<malloc.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl_config.h
+	"SDL_platform.h"
+	"SDL_config_dreamcast.h"
+	"SDL_config_macos.h"
+	"SDL_config_macosx.h"
+	"SDL_config_symbian.h"
+	"SDL_config_win32.h"
+	"SDL_config_os2.h"
+	"SDL_config_minimal.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl_platform.h
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl_config_dreamcast.h
+	"SDL_platform.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl_config_macos.h
+	"SDL_platform.h"
+	<MacTypes.h>
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl_config_macosx.h
+	"SDL_platform.h"
+	<AvailabilityMacros.h>
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl_config_symbian.h
+	"SDL_platform.h"
+	<stdarg.h>
+	<stddef.h>
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl_config_win32.h
+	"SDL_platform.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl_config_os2.h
+	"SDL_platform.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl_config_minimal.h
+	"SDL_platform.h"
+	<stdarg.h>
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\begin_code.h
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\close_code.h
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl_error.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl_endian.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	<process.h>
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl_cdrom.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl_cpuinfo.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_active.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_quit.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl_active.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl_keyboard.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_keysym.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl_keysym.h
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl_mouse.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl_video.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl_joystick.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl_quit.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl_loadso.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1296228088 c:\users\nbyloff\documents\projects\github\kinectchess\kinectchess\lib\sdl\include\sdl\sdl_version.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"

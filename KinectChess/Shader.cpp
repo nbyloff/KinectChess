@@ -210,7 +210,6 @@ GLuint Shader::loadShaderProgram(std::string buffer, std::string &infoLog)
 
     // Read the text file containing the GLSL shader program.
     // This file contains 1 vertex shader and 1 fragment shader.
-
     // Compile and link the vertex and fragment shaders.
     if (buffer.length() > 0)
     {
