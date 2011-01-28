@@ -154,7 +154,6 @@ GLvoid GLEngine::establishProjectionMatrix(GLsizei width, GLsizei height)
 
 GLvoid GLEngine::Initialize(GLint width, GLint height)
 {
-
 	GLenum err = glewInit();
 	selectedItem = NULL;
 	selectedSquare = NULL;
@@ -164,10 +163,10 @@ GLvoid GLEngine::Initialize(GLint width, GLint height)
     supportsProgrammablePipeline = GL2SupportsGLVersion(2, 0);
 
     // Check for GL_EXT_texture_filter_anisotropic support.
-    //if (extensionSupported("GL_EXT_texture_filter_anisotropic"))
-     //   glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &maxAnisotrophy);
-    //else
-    maxAnisotrophy = 1.0f;
+    if (extensionSupported("GL_EXT_texture_filter_anisotropic"))
+        glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &maxAnisotrophy);
+    else
+		maxAnisotrophy = 1.0f;
 
 	glEnable(GL_TEXTURE_2D);
     glEnable(GL_DEPTH_TEST);
@@ -177,8 +176,8 @@ GLvoid GLEngine::Initialize(GLint width, GLint height)
     glEnable(GL_LIGHT0);
 	glClearStencil(0);
 
-    //if (supportsProgrammablePipeline)
-    //{
+    if (supportsProgrammablePipeline)
+    {
         std::string infoLog;
         //if loading fails, load from text file instead of resource file; we're in c::b
         if (!(blinnPhongShader = shader->loadShaderProgramFromResource(
@@ -193,7 +192,7 @@ GLvoid GLEngine::Initialize(GLint width, GLint height)
 
 		if (!(nullTexture = Texture::createNullTexture(2, 2)))
             throw std::runtime_error("Failed to create null texture.");
-    //}
+    }
 }
 
 bool GLEngine::extensionSupported(const char *pszExtensionName)

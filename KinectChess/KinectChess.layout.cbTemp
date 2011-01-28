@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Release" />
+	<File name="GLEngine.cpp" open="1" top="1" tabpos="3">
+		<Cursor position="5028" topLine="153" />
+	</File>
+	<File name="GLEngine.h" open="1" top="0" tabpos="2">
+		<Cursor position="266" topLine="0" />
+	</File>
+	<File name="ModelOBJ.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="6779" topLine="262" />
+	</File>
+	<File name="Shader.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="1694" topLine="16" />
+	</File>
+	<File name="Shader.h" open="1" top="0" tabpos="1">
+		<Cursor position="442" topLine="1" />
+	</File>
+	<File name="Texture.cpp" open="0" top="0" tabpos="5">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="Transform.cpp" open="1" top="0" tabpos="8">
+		<Cursor position="167" topLine="0" />
+	</File>
+	<File name="Vector3.h" open="1" top="0" tabpos="7">
+		<Cursor position="499" topLine="0" />
+	</File>
+	<File name="bitmap.cpp" open="0" top="0" tabpos="8">
+		<Cursor position="9413" topLine="359" />
+	</File>
+	<File name="camera.h" open="0" top="0" tabpos="6">
+		<Cursor position="379" topLine="0" />
+	</File>
+	<File name="main.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="1389" topLine="36" />
+	</File>
+</CodeBlocks_layout_file>

@@ -30,6 +30,9 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add directory="lib" />
+			<Add directory="include" />
+			<Add directory="lib\glew\lib" />
 		</Compiler>
 		<Linker>
 			<Add library="mingw32" />
