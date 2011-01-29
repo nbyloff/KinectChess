@@ -25,6 +25,8 @@
 #include <XnCppWrapper.h>
 #include <XnVPointControl.h>
 
+#include "SDL_ttf.h"
+
 typedef enum
 {
 	IN_SESSION,
@@ -86,6 +88,8 @@ protected:
 
 	XnBool m_bDrawDM;
 	XnBool m_bFrameID;
+
+	TTF_Font *fntCourier;
 };
 
 #endif

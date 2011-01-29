@@ -36,6 +36,7 @@ XnVPointDrawer::XnVPointDrawer(XnUInt32 nHistory, xn::DepthGenerator depthGenera
 	m_nHistorySize(nHistory), m_DepthGenerator(depthGenerator), m_bDrawDM(false), m_bFrameID(false)
 {
 	m_pfPositionBuffer = new XnFloat[nHistory*3];
+
 }
 
 // Destructor. Clear all data structures
@@ -49,6 +50,8 @@ XnVPointDrawer::~XnVPointDrawer()
 	m_History.clear();
 
 	delete []m_pfPositionBuffer;
+
+	TTF_CloseFont( fntCourier );
 }
 
 // Change whether or not to draw the depth map
@@ -379,6 +382,7 @@ void PrintSessionState(SessionState eState)
 	glColor4f(1,0,1,1);
 	glRasterPos2i(20, 20);
 	XnChar strLabel[200];
+	TTF_Font *fntCourier = TTF_OpenFont( "Fonts\\cour.ttf", 12 );
 
 	switch (eState)
 	{
@@ -389,6 +393,13 @@ void PrintSessionState(SessionState eState)
 	case QUICK_REFOCUS:
 		sprintf(strLabel, "Raise your hand for it to be identified, or perform click or wave gestures"); break;
 	}
+
+	SDL_Color clrFg = {0,0,255,0};  // Blue ("Fg" is foreground)
+	SDL_Surface *sText = TTF_RenderText_Solid( fntCourier, strLabel, clrFg );
+	   //SDL_Rect rcDest = {0,0,0,0};
+	   //SDL_BlitSurface( sText,NULL, screen,&rcDest );
+	SDL_FreeSurface( sText );
+
 	//NWB FONT
 	//glPrintString(GLUT_BITMAP_HELVETICA_18, strLabel);
 }
