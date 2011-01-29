@@ -39,8 +39,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)\lib\glew\include;$(ProjectDir)\lib\sdl\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)\lib\glew\lib;$(ProjectDir)\lib\sdl\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)\lib\glew\include;$(ProjectDir)\lib\sdl\include;$(ProjectDir)\lib\openni\include;$(ProjectDir)\lib\nite\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\lib\glew\lib;$(ProjectDir)\lib\sdl\lib;$(ProjectDir)\lib\openni\lib;$(ProjectDir)\lib\nite\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -58,7 +58,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL.lib;SDLmain.lib;opengl32.lib;glew32s.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL.lib;SDLmain.lib;opengl32.lib;glew32s.lib;glu32.lib;OpenNI.lib;XnVNite.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -86,6 +86,7 @@
     <ClInclude Include="Control.h" />
     <ClInclude Include="GLEngine.h" />
     <ClInclude Include="ModelOBJ.h" />
+    <ClInclude Include="PointDrawer.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Texture.h" />
@@ -99,6 +100,7 @@
     <ClCompile Include="GLEngine.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModelOBJ.cpp" />
+    <ClCompile Include="PointDrawer.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Transform.cpp" />

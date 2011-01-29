@@ -5,15 +5,15 @@
 #include "camera.h"
 
 // Headers for OpenNI
-/*#include <XnOpenNI.h>
+#include <XnOpenNI.h>
 #include <XnCppWrapper.h>
 #include <XnHash.h>
 #include <XnLog.h>
 
 // Header for NITE
-#include "XnVNite.h"*/
+#include "XnVNite.h"
 // local header
-//#include "PointDrawer.h"
+#include "PointDrawer.h"
 
 #define GLUT_KEY_ESCAPE		27
 
@@ -226,8 +226,6 @@ int main (int argc, char* argv[])
 		state.LeftButtonDown = SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(1);
 		state.MiddleButtonDown = SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(2);
 		state.RightButtonDown = SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(3);
-		//state.WheelUp = SDL_PollEvent(NULL) & SDL_BUTTON(SDL_BUTTON_WHEELUP);
-		//state.WheelDown = SDL_PollEvent(NULL) & SDL_BUTTON(SDL_BUTTON_WHEELDOWN);
 
 		drawScene();
 
